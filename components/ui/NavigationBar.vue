@@ -1,0 +1,206 @@
+<template>
+    <div
+        class="w-full h-full bg-[#2973B2] flex items-center justify-center">
+        <div class="w-[95%] flex items-center justify-between">
+            <div class="w-[150px] h-[150px]">
+                <img 
+                    :src="Logo" 
+                    alt="website logo"
+                    class="w-full object-cover rounded-full">
+            </div>
+            <div class="">
+                <ul class="flex gap-3">
+                    <li
+                        v-for="(item, idx) in linkItems">
+                        <ULink
+                            :key="idx"
+                            :to="item.to"
+                            active-class="bg-white bg-black py-2 px-4 rounded-full "
+                            class="text-[.9rem]"
+                            inactive-class="text-white hover:text-blue-300 font-normal py-2 px-4 rounded-full hover:bg-white transition">
+                            {{ item.label }}
+                        </ULink>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-fit relative">
+                    <UButtonGroup size="md" orientation="horizontal">
+                        <UInput
+                            icon="i-heroicons-magnifying-glass-20-solid"
+                            size="sm"
+                            color="white"
+                            :trailing="false"
+                            variant="none"
+                            placeholder="Search..."
+                            :padded="false"
+                            class="bg-gray-50 text-black rounded-l-md text-[.8rem] w-[250px] overflow-hidden py-1.5"/>
+                            <UButton
+                                color="white"
+                                class="px-3 group border-none outline-none bg-white"
+                                variant="soft"
+                                :padded="false"
+                                @click="() => {
+                                    toggleSearch();
+                                }">
+                                <UIcon
+                                    :name="openSearchHistory ? 'meteor-icons:xmark' : 'i-heroicons-magnifying-glass-20-solid'"
+                                    class="group-hover:scale-110 text-gray-500 hover:text-black transition text-[1.2rem]"/>
+                            </UButton>
+                    </UButtonGroup>
+                    <div 
+                        v-if="openSearchHistory"
+                        class="w-full absolute bg-white p-2 top-[110%] rounded-md shadow-md">
+                        search history
+                    </div>
+                </div>
+                <div 
+                    class="w-fit">
+                    <UChip
+                        size="2xl"
+                        text="9">
+                        <UButton 
+                            icon="material-symbols:shopping-cart-outline" 
+                            color="gray" />
+                    </UChip>
+                </div>
+                <UDropdown
+                    :items="itemsLinkDropdown"
+                    :popper="{ arrow: true }">
+                    <template #account="{ item }">
+                        <ULink
+                            :to="item.to"
+                            active-class="text-black"
+                            inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                            {{ item.label }}
+                        </ULink>
+                    </template>
+                    <UButton
+                        color="white"
+                        size="sm"
+                        icon="iconamoon:menu-burger-horizontal-fill"
+                        class="border-none"/>    
+                </UDropdown>
+                <UDropdown 
+                    :items="userItems" 
+                    :popper="{ arrow: true }">
+                        <div class="w-[33px] h-[33px] overflow-hidden rounded-full shadow-md">
+                            <img 
+                                src="https://avatars.githubusercontent.com/u/739984?v=4" 
+                                alt=""
+                                class="w-full h-full object-cover">
+                        </div>
+                </UDropdown>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { 
+    Logo 
+} from '~/assets/images';
+
+/**
+ * Begin::Declare some variable section
+ */
+const openSearchHistory: Ref<boolean> = ref<boolean>(false)
+const linkItems = [
+    {
+        to: '/',
+        label: 'Home',
+        icon: 'i-heroicons-arrow-left-on-rectangle'
+    },
+    {
+        to: '/ds',
+        label: 'Shop',
+        icon: 'i-heroicons-arrow-left-on-rectangle'
+    },
+    {
+        to: '/index',
+        label: 'Categories',
+        icon: 'i-heroicons-arrow-left-on-rectangle'
+    },
+    {
+        to: '/index',
+        label: 'About',
+        icon: 'i-heroicons-arrow-left-on-rectangle'
+    },
+];
+const itemsLinkDropdown = [
+    [
+        {
+            label: 'Home',
+            to: '',
+            icon: 'ant-design:home-outlined'
+        }
+    ], 
+    [
+        {
+            label: 'Shop',
+            icon: 'solar:shop-minimalistic-linear',
+            to: '',
+        },
+        {
+            label: 'Categories',
+            icon: 'line-md:chevron-left-circle-twotone',
+            to: '',
+        }
+    ], 
+    [
+        {
+            label: 'About',
+            icon: 'ix:about',
+            to: '',
+        }
+    ]
+]
+const userItems = [
+    [
+        {
+            label: 'ben@example.com',
+            slot: 'account',
+            disabled: true
+        }
+    ], 
+    [
+        {
+            label: 'Settings',
+            icon: 'i-heroicons-cog-8-tooth'
+        }
+    ], 
+    [
+            {
+            label: 'Documentation',
+            icon: 'i-heroicons-book-open'
+        }, 
+        {
+            label: 'Changelog',
+            icon: 'i-heroicons-megaphone'
+        }, 
+        {
+            label: 'Status',
+            icon: 'i-heroicons-signal'
+        }
+    ], 
+    [
+        {
+            label: 'Sign out',
+            icon: 'i-heroicons-arrow-left-on-rectangle'
+        }
+    ]
+]
+/**
+ * End::Declare some variable section
+ */
+
+/**
+ * Begin::Some logical section
+ */
+const toggleSearch = (): void => {
+    openSearchHistory.value = !openSearchHistory.value as boolean;
+}
+/**
+ * End::Some logical section
+ */
+</script>
