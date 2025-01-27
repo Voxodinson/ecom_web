@@ -1,46 +1,83 @@
 <template>
-    <div
-        class="w-full h-fit bg-white flex flex-col items-start justify-start">
+    <div 
+        class="w-full h-[100vh] relative shadow-md">
+        <img 
+            :src="switchSrc" 
+            alt=""
+            class="w-full h-full">
         <div 
-            class="w-full h-[100vh] relative">
-            <img 
-                src="https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg" 
-                alt=""
-                class="w-full h-full object-cover">
+            class="absolute top-0 left-0 w-full h-full pointer-events-none">
             <div 
-                class="absolute top-0 left-0 w-full h-full pointer-events-none">
-                <div 
-                    class="w-full h-full bg-black/50 mix-blend-multiply"></div>
-            </div>
+                class="w-full h-full bg-black/50 mix-blend-multiply"></div>
+        </div>
+        <div 
+            class="w-full h-full flex items-center justify-center absolute top-0 left-0">
             <div 
-                class="w-full h-full flex items-center justify-center absolute top-0 left-0">
-                <div 
-                    class="flex items-center justify-center flex-col">
-                    <h1
-                        class="text-[3rem] font-bold uppercase text-white">
-                        Company Name
-                    </h1>
-                    <h3
-                        class="text-[1.2rem] font-semibold text-white mt-3">
-                        We prvide a travel products and recommend most popular place
-                    </h3>
-                    <p
-                        class="w-[80%] text-white text-center">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae tempora sunt ex vel ratione nesciunt quam, laudantium voluptatem! Maiores iure officiis porro pariatur obcaecati natus eligendi autem. Labore quidem amet itaque, hic, provident nisi possimus praesentium recusandae ut, veniam vel?
-                    </p>
-                    <UButton
-                        label="Explore our website"
-                        variant="none"
-                        color="white"
-                        size="md"
-                        class="bg-white bg-opacity-50 mt-6 text-white rounded-full px-10 hover:px-20 transition"/>
-                </div>
-                
+                class="flex items-center justify-center flex-col">
+                <h1
+                    class="text-[3rem] font-bold uppercase text-white">
+                    Company Name
+                </h1>
+                <h3
+                    class="text-[1.2rem] font-semibold text-white mt-3">
+                    We prvide a travel products and recommend most popular place
+                </h3>
+                <p
+                    class="w-[80%] text-white text-center">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae tempora sunt ex vel ratione nesciunt quam, laudantium voluptatem! Maiores iure officiis porro pariatur obcaecati natus eligendi autem. Labore quidem amet itaque, hic, provident nisi possimus praesentium recusandae ut, veniam vel?
+                </p>
+                <ULink
+                    to=""
+                    class="bg-white bg-opacity-50 py-1.5 mt-6 text-white rounded-full px-10 hover:px-20 transition">
+                    Explore our website
+                </ULink>
             </div>
         </div>
-
         <div 
-            class="w-full h-fit  grid grid-rows-2 p-3 rounded-md">
+            class="h-full flex items-center justify-center flex-col gap-3 absolute top-0 right-3">
+            <div 
+                v-for="(item, idx) in backgrounImage"
+                :key="idx"
+                @click="(): void => {
+                    switchBackground(idx);
+                    console.log(activeIdx)
+                }"
+                :class="activeIdx === idx ? 'border-[2px] border-white' : ''"
+                class="h-[60px] w-[60px] rounded-md overflow-hidden cursor-pointer relative bg-white shadow-md group">
+                <img 
+                    :src="item" 
+                    alt="image"
+                    class="w-full h-full object-cover hover:scale-110 transition ">
+            </div>
+        </div>
+        <div 
+            class="w-full flex items-center justify-center absolute bottom-[-80px]">
+            <div 
+                class=" w-[60%] h-fit grid grid-cols-2 gap-3">
+                <div 
+                    v-for="(item, idx) in main_card"
+                    :key="idx"
+                    class="w-full h-[200px] rounded-md overflow-hidden relative bg-white shadow-md group">
+                    <img 
+                        :src="item.img" 
+                        alt="image"
+                        class="w-full h-full object-cover">
+                    <ULink
+                        to="" 
+                        class="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50 hidden group-hover:flex cursor-pointer items-center justify-center">
+                        <h3
+                            class="text-[1.2rem] font-semibold text-white">
+                            {{ item.text }}
+                        </h3>
+                    </ULink>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        class="w-full h-fit  flex p-3 flex-col items-start justify-start mt-[130px]">
+        <div 
+            class="w-full h-fit bg-white grid grid-rows-2 p-3 rounded-md">
             <div 
                 class="w-full flex gap-3">
                 <div 
@@ -168,11 +205,11 @@
     </div>
 </template>
 
-<script setup>
-import { UButton } from '#components';
+<script lang="ts" setup>
 import { 
     ProductCard 
 } from '~/components/ui';
+
 definePageMeta({
     colorMode: 'light'
 });
@@ -180,44 +217,41 @@ definePageMeta({
 /**
  * Begin::Declare variable section
  */
-const discountItems = [
-    { label: 'Paddleboarding' },
-    { label: 'Rock Hopping' },
-    { label: 'Zip Lining' },
-    { label: 'Horseback Riding' },
-    { label: 'Scuba Diving' },
-    { label: 'Snorkeling' },
-    { label: 'Caving' },
-    { label: 'Beachcombing' },
-    { label: 'Snowmobiling' },
-    { label: 'Bungee Jumping' },
-    { label: 'Skydiving' },
-    { label: 'Geocaching' },
-    { label: 'Trekking' },
-    { label: 'Wilderness Survival' },
-    { label: 'Off-roading' },
-    { label: 'Fishing Tournaments' },
-    { label: 'Sailing' },
-    { label: 'Tandem Biking' },
-    { label: 'Camping with Pets' },
-    { label: 'Tree Climbing' }
+const switchSrc: Ref<string> = ref<string>('https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg');
+const activeIdx: Ref<number> = ref<number>(0);
+const backgrounImage = [
+    'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
+    'https://t4.ftcdn.net/jpg/02/35/44/49/360_F_235444984_Ngx57fURYhp2A1cHWSfvDWEf6OWRoUK2.jpg',
+    'https://c4.wallpaperflare.com/wallpaper/623/232/3/beautiful-village-wallpaper-preview.jpg'
 ]
-const slideItems = [
+const main_card = [
     {
-        image: 'https://i.pinimg.com/736x/78/39/50/783950f5aa9b56626989ee3729404eac.jpg',
+        img: 'https://i.pinimg.com/474x/6b/12/36/6b1236a4e2865155950091285625070a.jpg',
+        text: 'Adventure Accessories',
+        to: ''
     },
     {
-        image: 'https://i.pinimg.com/736x/78/39/50/783950f5aa9b56626989ee3729404eac.jpg'
-    },
-    {
-        image: 'https://i.pinimg.com/736x/78/39/50/783950f5aa9b56626989ee3729404eac.jpg',
-    },
-    {
-        image: 'https://i.pinimg.com/736x/78/39/50/783950f5aa9b56626989ee3729404eac.jpg'
-    },
+        img: ' https://i.pinimg.com/474x/6b/62/50/6b6250456f655d21b786bb3d42e0f6a8.jpg',
+        text: 'Adventure Place Recommend',
+        to: ''
+    }
 ]
 /**
  * End::Declare variable section
+ */
+
+/**
+ * Begin::Some logical section
+ */
+const switchBackground = (idx: number) => {
+    if (idx >= 0 && idx < backgrounImage.length) {
+        switchSrc.value = backgrounImage[idx];
+        activeIdx.value = idx as number;
+    } 
+};
+
+/**
+ * Begin::Some logical section
  */
 </script>
 

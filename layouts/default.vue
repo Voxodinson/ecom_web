@@ -1,8 +1,8 @@
 <template>
     <div
-        class="bg-gray-100 h-fit relative">
+        class="bg-gray-200 h-fit relative">
         <div 
-            class="h-[60px] w-full absolute top-3 z-30">
+            class=" w-full absolute top-3 z-30">
             <NavigationBar/>
         </div>
         <NuxtPage/>
