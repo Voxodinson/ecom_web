@@ -1,10 +1,30 @@
 <template>
     <div
-        class="w-full h-fit bg-white flex items-center justify-center">
+        class="w-full h-fit bg-white flex flex-col items-center justify-center">
+        
         <div 
-            class="w-[80%] h-full py-6">
+            class="w-[95%] h-full py-3">
             <div 
-                class="w-full grid grid-cols-5 justify-center">
+                class="w-full flex items-center justify-center p-3 bg-green-500 gap-3 shadow-md rounded-md">
+                <UIcon
+                    name="fluent-emoji-flat:glowing-star"
+                    class="w-10 h-10"/>
+                <p  
+                    class="text-white">
+                    New menber 
+                    <span
+                        class="text-yellow-400 capitalize">
+                        get free shipping
+                    </span>
+                    with 2 time orders from our website
+                    <ULink
+                        class="text-white text-[.9rem] underline capitalize">
+                        Register Now.....
+                    </ULink>
+                </p>
+            </div>
+            <div 
+                class="w-full grid mt-3 grid-cols-5 justify-center">
                 <div 
                     class="flex flex-col gap-3">
                     <h3
@@ -124,7 +144,7 @@
             <div 
                 class="w-full flex items-center justify-end border-t-[1px] mt-3 border-gray-400">
                 <div 
-                    class="py-2">
+                    class="py-2 w-1/2 flex flex-col gap-3">
                     <h3
                         class="text-[1.2rem] font-semibold uppercase">
                         subscribe & get 10% off for your first order
@@ -134,7 +154,7 @@
                         enctype="multipart/form-data"
                         @submit.prevent="getData"
                         name="customer"
-                        class="bg-white w-[400px] rounded-md flex gap-3 justify-end">
+                        class="bg-white w-full rounded-md flex gap-3 justify-end">
                         <UInput 
                             placeholder="Youre email here..."
                             variant="none"
@@ -157,6 +177,16 @@
                     </span>
                 </div>
             </div>
+        </div>
+        <div class="w-full bg-[#2973B2] h-[50px] flex items-center justify-center">
+            <span
+                class="text-white text-[.9rem]">
+                © 2024 
+                <span class="italic">
+                    Campany Name
+                </span> 
+                . All Rights Reserved
+            </span>
         </div>
     </div>
 </template>

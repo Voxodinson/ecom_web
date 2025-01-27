@@ -1,14 +1,14 @@
 <template>
     <div
-        class="w-full h-full bg-[#2973B2] flex items-center justify-center">
-        <div class="w-[95%] flex items-center justify-between">
+        class="w-full h-full flex items-center justify-center">
+        <div class="w-[95%] h-full bg-white pr-3 bg-opacity-40 rounded-full flex items-center justify-between">
             <div class="w-[150px] h-[150px]">
                 <img 
                     :src="Logo" 
                     alt="website logo"
                     class="w-full object-cover rounded-full">
             </div>
-            <div class="">
+            <div class="hidden lg:flex">
                 <ul class="flex gap-3">
                     <li
                         v-for="(item, idx) in linkItems">
@@ -24,7 +24,7 @@
                 </ul>
             </div>
             <div class="flex items-center gap-3">
-                <div class="w-fit relative">
+                <div class="w-fit relative hidden lg:flex">
                     <UButtonGroup size="md" orientation="horizontal">
                         <UInput
                             icon="i-heroicons-magnifying-glass-20-solid"
@@ -65,6 +65,7 @@
                     </UChip>
                 </div>
                 <UDropdown
+                    class="lg:hidden flex"
                     :items="itemsLinkDropdown"
                     :popper="{ arrow: true }">
                     <template #account="{ item }">
