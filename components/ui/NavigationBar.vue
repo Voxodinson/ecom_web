@@ -1,7 +1,7 @@
 <template>
     <div
-        class="w-full h-full flex items-center justify-center">
-        <div class="w-[95%] h-full bg-white pr-3 bg-opacity-40 rounded-full flex items-center justify-between">
+        class="w-full h-fit flex items-center justify-center">
+        <div class="w-[95%] h-[55px] bg-white pr-3 bg-opacity-40 rounded-full flex items-center justify-between">
             <div class="w-[150px] h-[150px]">
                 <img 
                     :src="Logo" 
@@ -25,7 +25,10 @@
             </div>
             <div class="flex items-center gap-3">
                 <div class="w-fit relative hidden lg:flex">
-                    <UButtonGroup size="md" orientation="horizontal">
+                    <UButtonGroup 
+                        size="md" 
+                        orientation="horizontal"
+                        class=" rounded-full overflow-hidden">
                         <UInput
                             icon="i-heroicons-magnifying-glass-20-solid"
                             size="sm"
@@ -61,7 +64,7 @@
                         text="9">
                         <UButton 
                             icon="material-symbols:shopping-cart-outline" 
-                            color="gray" />
+                            color="gray"/>
                     </UChip>
                 </div>
                 <UDropdown
