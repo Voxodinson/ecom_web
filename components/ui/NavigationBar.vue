@@ -1,7 +1,7 @@
 <template>
     <div
-        class="w-full h-fit flex items-center justify-center">
-        <div class="w-[95%] h-[55px] bg-white pr-3 bg-opacity-40 rounded-full flex items-center justify-between">
+        class="w-full h-fit flex items-center bg-[#2973B2]  justify-center">
+        <div class="w-full h-[55px] pr-3 bg-opacity-80 flex items-center justify-between">
             <div class="w-[150px] h-[150px]">
                 <img 
                     :src="Logo" 
@@ -15,7 +15,7 @@
                         <ULink
                             :key="idx"
                             :to="item.to"
-                            active-class="bg-white bg-black py-2 px-4 rounded-full "
+                            active-class="bg-white bg-black text-black py-2 px-4 rounded-full "
                             class="text-[.9rem]"
                             inactive-class="text-white hover:text-blue-300 font-normal py-2 px-4 rounded-full hover:bg-white transition">
                             {{ item.label }}
@@ -116,17 +116,12 @@ const linkItems = [
         icon: 'i-heroicons-arrow-left-on-rectangle'
     },
     {
-        to: '/ds',
+        to: '/products/product',
         label: 'Shop',
         icon: 'i-heroicons-arrow-left-on-rectangle'
     },
     {
-        to: '/index',
-        label: 'Categories',
-        icon: 'i-heroicons-arrow-left-on-rectangle'
-    },
-    {
-        to: '/index',
+        to: '/about',
         label: 'About',
         icon: 'i-heroicons-arrow-left-on-rectangle'
     },
