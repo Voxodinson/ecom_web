@@ -1,9 +1,8 @@
 <template>
     <div
         class="w-full h-fit bg-white flex flex-col items-center justify-center">
-        
         <div 
-            class="w-[95%] h-full py-3">
+            class="w-full h-full px-6 mt-3">
             <div 
                 class="w-full flex items-center justify-center p-3 bg-green-500 gap-3 shadow-md rounded-md">
                 <UIcon

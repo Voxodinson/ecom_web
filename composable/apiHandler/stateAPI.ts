@@ -2,10 +2,6 @@ import {
     useAuthStore
 } from "@/store/auth";
 import ContextAPI from './contextAPI';
-import {
-    Success,
-    Error
-} from "@/utils/dialog";
 import type {
     ResponseStatus
 } from "@/models/type";
@@ -14,7 +10,7 @@ abstract class StateAPI
 {
     protected context!: ContextAPI;
     protected token: string | null | undefined = null;
-    protected base_url: string = (import.meta.env.VITE_BASE_URL as ImportMetaEnv)+'admin/v1/en/';
+    protected base_url: string = (import.meta.env.VITE_BASE_URL as ImportMetaEnv)+'';
 
     constructor()
     {
@@ -34,7 +30,7 @@ abstract class StateAPI
         }
         else
         {
-            Success(response.message);
+            console.log(response.message);
         }
     }
 
