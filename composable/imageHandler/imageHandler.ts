@@ -1,9 +1,4 @@
-import {
-    Xmark
-} from "@/components/icons/";
-import {
-    AddImage
-} from '@/assets/images/';
+
 import {
     createApp
 } from 'vue';
@@ -11,7 +6,7 @@ import {
 const XmarkWrapper = defineComponent({
     render()
     {
-        return h(Xmark);
+        return h('kas');
     }
 });
 
@@ -69,7 +64,7 @@ class ImageHandler
         divImage.className = 'flex items-center justify-center w-full h-full relative';
 
         const imageElement: HTMLImageElement = document.createElement('img') as HTMLImageElement;
-        imageElement.src = AddImage;
+        imageElement.src = '';
         imageElement.alt = 'add photo';
         imageElement.loading = 'lazy';
         imageElement.className = 'w-[30px] h-[30px]';

@@ -121,6 +121,11 @@ const linkItems = [
         icon: 'i-heroicons-arrow-left-on-rectangle'
     },
     {
+        to: '/travels/travel',
+        label: 'Travel',
+        icon: 'i-heroicons-arrow-left-on-rectangle'
+    },
+    {
         to: '/about',
         label: 'About',
         icon: 'i-heroicons-arrow-left-on-rectangle'
