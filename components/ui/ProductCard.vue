@@ -15,7 +15,7 @@
                     {{data.price}}$
                 </span>
             </div>
-            <h3 class=" font-semibold mt-1">
+            <h3 class=" font-semibold mt-1 text-ellipsis overflow-hidden line-clamp-2 whitespace-normal truncate">
                 {{ data.title }}
             </h3>
             <p
