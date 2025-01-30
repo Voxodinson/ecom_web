@@ -2,10 +2,10 @@
      <div
         v-for="(data, idx) in props.data"
         :key="idx"
-        class="w-full flex flex-col h-[400px] justify-between rounded-md p-2 shadow-md">
+        class="w-full flex flex-col h-[450px] justify-between rounded-md p-2 shadow-md">
         <div class="w-full relative">
             <div 
-                class="w-full h-[250px] rounded-t-md overflow-hidden">
+                class="w-full h-[270px] rounded-t-md overflow-hidden">
                 <img 
                     :src="(data.image as string)" 
                     alt="Image product"
