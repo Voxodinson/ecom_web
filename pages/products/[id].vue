@@ -1,7 +1,35 @@
 <template>
     <div
-        class="mt-[100px] h-[100vh]">
-        {{ data.title }}
+        class="mt-[100px] px-6 w-full flex gap-3 h-fit">
+        <div 
+            class="flex items-start justify-start">
+            <UCarousel
+                v-model="activeIndex"
+                :items="items"
+                :ui="{
+                    item: 'basis-full bg-gray-300',
+                    container: 'rounded-lg h-[500px] w-[500px]'
+                }"
+                arrows
+                class="mx-auto">
+                <img 
+                    :src="items[activeIndex]" 
+                    class="w-full" 
+                    draggable="false">
+            </UCarousel>
+            <div 
+                class="px-2 flex flex-col gap-2">
+                <div
+                    v-for="(item, idx) in items" 
+                    :key="idx"
+                     @click="changeSlide(idx)"
+                    class="w-[60px] h-[60px] rounded-md overflow-hidden">
+                    <img 
+                        :src="item" 
+                        class="w-full h-full hover:scale-110 transition">
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -15,10 +43,9 @@ import type {
     Items
 } from '~/models/type';
 
-import { useRoute } from 'nuxt/app';
-
-const route = useRoute();
-const productId = route.params.id;
+import { 
+    useRoute 
+} from 'nuxt/app';
 
 definePageMeta({
     colorMode: 'light'
@@ -34,8 +61,19 @@ definePageMeta({
 /**
  * Begin::Declare variable section
  */
-const data: Ref<Items> = ref<Items>({});
 
+const route = useRoute();
+const productId = route.params.id;
+const data: Ref<Items> = ref<Items>({});
+const activeIndex: Ref<number> = ref<number>(0)
+const items: any = [
+  'https://picsum.photos/1920/1080?random=1',
+  'https://picsum.photos/1920/1080?random=2',
+  'https://picsum.photos/1920/1080?random=3',
+  'https://picsum.photos/1920/1080?random=4',
+  'https://picsum.photos/1920/1080?random=5',
+  'https://picsum.photos/1920/1080?random=6'
+]
 /**
  * End::Declare variable section
  */
@@ -43,7 +81,9 @@ const data: Ref<Items> = ref<Items>({});
 /**
  * Begin::Some logical section
  */
-
+ const changeSlide = (index: number) => {
+    activeIndex.value = index;
+};
 /**
  * End::Some logical section
  */

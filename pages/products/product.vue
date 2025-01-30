@@ -8,14 +8,13 @@
                 Products
             </h3>
             <UButton
-                icon="material-symbols-light:tune"
+                :icon="isOpenFilter ? 'material-symbols:close-rounded' : 'material-symbols-light:tune'"
                 size="md"
                 color="white"
-                variant="none"
                 @click="() => {
                     toggleFilter();
                 }"
-                class="bg-[#2973B2] text-white"/>
+                class="bg-[#2973B2] text-white hover:text-black transition"/>
         </div>
         <div
             v-if="isOpenFilter"
@@ -79,37 +78,121 @@
                         v-for="i in 10"
                         size="sm"
                         color="white"
-                        variant="none"
                         label="Home"
                         class="bg-gray-100 shadow-sm hover:bg-blue-400 hover:text-white transition"/>
                 </div>
             </div>
         </div>
+        <div 
+            class="w-full grid grid-cols-4 gap-3 py-3 mt-3 bg-gray-100 border-[1px] border-gray-200 rounded-md p-3">
+            <ProductCard
+                :data="data"/>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import {
+    ContextAPI,
+    SimpleAPI
+} from "@/composable/apiHandler";
+import type { 
+    Tab,
+    ResponseStatus,
+    Items,
+    Options
+} from '~/models/type';
 import { 
-    SelectMenu 
-} from '~/components/ui';
+    SelectMenu,
+    ProductCard 
+} from "~/components/ui";
 definePageMeta({
     colorMode: 'light'
 });
 /**
- * Begin::Declare variable
+ * Begin::Declare variable object section
  */
-const isOpenFilter: Ref<boolean> = ref<boolean>(false)
+ const api: ContextAPI = new ContextAPI(new SimpleAPI());
 /**
- * End::Declare variable
+ * End::Declare variable object section
  */
 
 /**
- * Begin::Some logical
+ * Begin::Declare variable section
  */
-const toggleFilter = (): void => {
+const data: Ref<object> = ref<object>({});
+const dataOptions: Ref<Options> = ref<Options>({});
+const isOpenFilter: Ref<boolean> = ref<boolean>(false);
+const timeout: Ref<NodeJS.Timeout | null> = ref<NodeJS.Timeout | null>(null);
+const filters: Ref<Items> = ref<Items>({
+    status_id: '',
+    warehouse_id: ''
+});
+/**
+ * End::Declare variable section
+ */
+
+/**
+ * Begin::Some logical section
+ */
+ const toggleFilter = (): void => {
     isOpenFilter.value = !isOpenFilter.value
 }
 /**
- * End::Some logical
+ * End::Some logical section
  */
+
+/**
+ * Begin::Fetch data section
+ */
+const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
+    const per_page: number = 10;
+    let url: string = `https://fakestoreapi.com/products`;
+    if(search)
+    {
+        url += `&search=${search}`;
+    }
+    const result: ResponseStatus = await api.get(url) as ResponseStatus;
+    if(!result.error)
+    {
+        data.value = result as any;
+    }
+}
+
+
+const searchData = async (value: string): Promise<void> => {
+    if(timeout.value)
+    {
+        clearTimeout(timeout.value);
+    }
+    timeout.value = setTimeout(async (): Promise<void> => {
+        await fetchData(1, value);
+    }, 250);
+}
+
+const fetchOption = async (): Promise<void> => {
+    const options: ResponseStatus = await api.get("setting/form/product") as ResponseStatus;
+    if(!options.error)
+    {
+        dataOptions.value = options.data as unknown as Options;
+    }
+    console.log(dataOptions.value)
+};
+
+const filterData = async (current_page: number = 1): Promise<void> => {
+    const per_page: number = 10;
+    const url: string = `package?per_page=${per_page}&page_no=${current_page}&status_id=${filters.value.status_id}&warehouse_id=${filters.value.warehouse_id}`;
+    const result: ResponseStatus = await api.get(url, false) as ResponseStatus;
+    if(!result.error)
+    {
+        data.value = result as object;
+    }
+}
+/**
+ * Begin::Fetch data section
+ */
+
+onMounted(async (): Promise<void> => {
+    await fetchData();
+})
 </script>
