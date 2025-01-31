@@ -14,7 +14,7 @@
                 <div
                     v-for="(item, idx) in items" 
                     :key="idx"
-                     @click="changeSlide(idx)"
+                    @click="changeSlide(idx)"
                     class="w-[60px] h-[60px] rounded-md overflow-hidden border-[2px] transition"
                     :class="activeIndex === idx ? 'border-blue-500' : 'border-blue-100'">
                     <img 
