@@ -27,7 +27,7 @@
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae tempora sunt ex vel ratione nesciunt quam, laudantium voluptatem! Maiores iure officiis porro pariatur obcaecati natus eligendi autem. Labore quidem amet itaque, hic, provident nisi possimus praesentium recusandae ut, veniam vel?
                 </p>
                 <ULink
-                    to=""
+                    to="/products/product"
                     class="bg-white bg-opacity-50 py-1.5 mt-6 text-white rounded-full px-10 hover:px-20 transition">
                     Explore our website
                 </ULink>
@@ -63,7 +63,7 @@
                         alt="image"
                         class="w-full h-full object-cover">
                     <ULink
-                        to="" 
+                        :to="item.to" 
                         class="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50 hidden group-hover:flex cursor-pointer items-center justify-center">
                         <h3
                             class="text-[1.2rem] font-semibold text-white">
@@ -288,12 +288,12 @@ const main_card = [
     {
         img: 'https://i.pinimg.com/474x/6b/12/36/6b1236a4e2865155950091285625070a.jpg',
         text: 'Adventure Accessories',
-        to: ''
+        to: '/products/product'
     },
     {
         img: ' https://i.pinimg.com/474x/6b/62/50/6b6250456f655d21b786bb3d42e0f6a8.jpg',
         text: 'Adventure Place Recommend',
-        to: ''
+        to: '/travels/travel'
     }
 ];
 const tabs: Ref<Tab[]> = computed(() => [
@@ -368,7 +368,7 @@ const switchBackground = (idx: number) => {
 /**
  * Begin::Fetch data section
  */
- const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
+const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
     const per_page: number = 10;
     let url: string = `https://fakestoreapi.com/products`;
     if(search)

@@ -15,10 +15,10 @@
             </h3>
             <p
                 class="text-white text-[.8rem] text-ellipsis overflow-hidden whitespace-nowrap truncate w-[300px]">
-                {{ data.text }}
+                {{ data.description }}
             </p>
             <ULink
-                to="" 
+                :to="`/travels/${data.id}`"
                 class="w-[200px] p-0.5 px-4 rounded-md text-white border-white bg-white bg-opacity-30 hover:bg-opacity-20 border-[1px]">
                 View Detais
             </ULink>
@@ -30,10 +30,15 @@
 import type { 
    Items 
 } from '~/models/type';
+import { 
+    useRoute 
+} from 'vue-router';
+
 /**
 * Begin::Set event trigger to parent component
 */
- const props = withDefaults(defineProps<{
+const route = useRoute();
+const props = withDefaults(defineProps<{
     data: Items[],
 }>(),{
     data: () => []
