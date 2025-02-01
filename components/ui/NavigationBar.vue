@@ -158,7 +158,7 @@ const itemsLinkDropdown = [
             to: '',
         }
     ]
-]
+];
 const userItems = [
     [
         {
@@ -169,22 +169,8 @@ const userItems = [
     ], 
     [
         {
-            label: 'Settings',
+            label: 'User Profile',
             icon: 'i-heroicons-cog-8-tooth'
-        }
-    ], 
-    [
-            {
-            label: 'Documentation',
-            icon: 'i-heroicons-book-open'
-        }, 
-        {
-            label: 'Changelog',
-            icon: 'i-heroicons-megaphone'
-        }, 
-        {
-            label: 'Status',
-            icon: 'i-heroicons-signal'
         }
     ], 
     [
@@ -193,7 +179,7 @@ const userItems = [
             icon: 'i-heroicons-arrow-left-on-rectangle'
         }
     ]
-]
+];
 /**
  * End::Declare some variable section
  */

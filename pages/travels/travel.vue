@@ -1,9 +1,25 @@
 <template>
     <div class="w-full p-6 pb-0 mt-[55px]">
         <div 
-            class="w-full rounded-md bg-gray-200 flex gap-3 p-3">
+            class="w-full border-b-[1px] border-gray-300 flex justify-between items-center pb-2">
+            <h3
+                class="font-semibold text-[1.2rem] uppercase">
+                Our Best Recommend To Visit
+            </h3>
+            <UButton
+                :icon="isOpenFilter ? 'material-symbols:close-rounded' : 'material-symbols-light:tune'"
+                size="md"
+                color="white"
+                @click="() => {
+                    toggleFilter();
+                }"
+                class="bg-[#2973B2] text-white hover:text-black transition"/>
+        </div>
+        <div
+            v-if="isOpenFilter"
+            class="w-full bg-gray-100 flex flex-wrap gap-3 p-3 rounded-md mt-3">
             <UFormGroup
-                class="w-[calc(99%/3)]"
+                class="w-[calc(98%/3)]"
                 label="Country"
                 name="">
                 <SelectMenu
@@ -16,7 +32,7 @@
                     class="w-full"/>
             </UFormGroup>
             <UFormGroup
-                class="w-[calc(99%/3)]"
+                class="w-[calc(98%/3)]"
                 label="Province"
                 name="">
                 <SelectMenu
@@ -29,7 +45,7 @@
                     class="w-full"/>
             </UFormGroup>
             <UFormGroup
-                class="w-[calc(99%/3)]"
+                class="w-[calc(98%/3)]"
                 label="Type"
                 name="">
                 <SelectMenu
@@ -44,22 +60,32 @@
         </div>
     </div>
     <div 
-        class="w-full p-6">
-        <h3
-            class="text-[1.2rem] font-semibold py-2">
-            Our Best Recommend To Visit
-        </h3>
+        class="w-full p-6 border-b-[1px] border-gray-200">
         <div 
             class="w-full grid grid-cols-3 gap-3">
             <TravelCard
                 :data="data"/>
         </div>
-        <span>
-
-        </span>
+        <div 
+            class="w-full flex items-center justify-center mt-3">
+            <UPagination
+                size="sm"
+                :total="_result.total || 0" 
+                show-last 
+                show-first
+                @update:model-value="async (current_page: number): Promise<void> => {
+                    await fetchData(current_page);
+                }"
+                v-model="page"
+                :to="(page_no: number) => ({
+                    query: {
+                        page_no
+                    }
+                })"/>
+        </div>
     </div>
     <div
-        class="w-full flex flex-col items-center justify-center gap-3 px-6">
+        class="w-full flex flex-col items-center justify-center gap-3 px-6 mt-3">
         <div 
             class="w-full text-start">
             <h3
@@ -147,6 +173,9 @@ definePageMeta({
  * Begin::Declare variable section
  */
 const data: Ref<any> = ref<any>([]);
+const _result: Ref<any> = ref<any>({});
+const isOpenFilter: Ref<boolean> = ref<boolean>(false);
+const page: Ref<number> = ref<number>(1);
 const items = [
   {
     image: 'https://t3.ftcdn.net/jpg/01/80/83/76/360_F_180837604_UyJZNTHPluIJNQJjmTkCpE4XLJ03Zott.jpg',
@@ -162,6 +191,16 @@ const items = [
 /**
  * End::Declare variable section
  */
+
+/**
+ * Begin::Some logical section
+ */
+ const toggleFilter = (): void => {
+    isOpenFilter.value = !isOpenFilter.value
+}
+/**
+ * End::Some logical section
+ */ 
 
 /**
  * Begin::Fetch data section
