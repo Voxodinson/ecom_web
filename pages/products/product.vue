@@ -88,6 +88,23 @@
             <ProductCard
                 :data="data"/>
         </div>
+        <div 
+            class="w-full flex items-center justify-center mt-3">
+            <UPagination
+                size="sm"
+                :total="_result.total || 0" 
+                show-last 
+                show-first
+                @update:model-value="async (current_page: number): Promise<void> => {
+                    await fetchData(current_page);
+                }"
+                v-model="page"
+                :to="(page_no: number) => ({
+                    query: {
+                        page_no
+                    }
+                })"/>
+        </div>
     </div>
 </template>
 
@@ -121,6 +138,8 @@ definePageMeta({
  * Begin::Declare variable section
  */
 const data: Ref<object> = ref<object>({});
+const _result: Ref<any> = ref<any>({});
+const page: Ref<number> = ref<number>(1);
 const dataOptions: Ref<Options> = ref<Options>({});
 const isOpenFilter: Ref<boolean> = ref<boolean>(false);
 const timeout: Ref<NodeJS.Timeout | null> = ref<NodeJS.Timeout | null>(null);
