@@ -3,7 +3,7 @@
         class="my-[100px] px-6 w-full grid grid-cols-2 gap-6 h-fit">
         <div 
             class="flex w-full items-start justify-start">
-            <div class="w-full h-[500px] rounded-md overflow-hidden">
+            <div class="w-full h-[75vh] rounded-md overflow-hidden">
                 <img 
                     :src="items[activeIndex]" 
                     class="w-full h-full" 
