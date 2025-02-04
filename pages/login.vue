@@ -8,7 +8,8 @@
                 <div
                     class="rounded-l-lg w-[500px] h-full relative *:text-white overflow-hidden">
                     
-                    <div class="w-full h-full">
+                    <div 
+                        class="w-full h-full">
                         <img 
                             src="https://i.pinimg.com/736x/bb/53/26/bb5326fabbda9512230bb348982e42a9.jpg" 
                             alt=""
@@ -24,12 +25,12 @@
                             </h3>
                             <p
                                 class="text-center text-[.8rem]">
-                                Enter your personal details and embark on an exciting journey with us. Sign up now and start exploring new opportunities!                            </p>
+                                Enter your personal details and embark on an exciting journey with us. Sign up now and start exploring new opportunities!</p>
                         </div>
                         <ULink
                             to="/register"
                             class="w-[200px] py-1 text-center rounded-full border-[1px] bg-opacity-50 bg-white border-white ">
-                            Register
+                            Register now
                         </ULink>
                     </div>
                 </div>
@@ -102,7 +103,7 @@
                         </div>
                         <UButton
                             type="submit"
-                            color="blue"
+                            color="black"
                             variant="solid"
                             size="md"
                             class="flex items-center justify-center text-md rounded-full mt-6"

@@ -2,9 +2,9 @@
     <div
         class="w-full mx-auto flex h-[100vh]">
         <div
-            class="panel-image bg-slate-50 w-full flex justify-center items-center">
+            class="panel-image bg-gray-100 w-full flex justify-center overflow-hidden items-center">
             <div
-                class="flex h-[550px] justify-center items-center bg-white shadow-sm overflow-hidden">
+                class="flex h-[550px] rounded-md justify-center items-center bg-white overflow-hidden">
                 <div
                     class="form-submit w-[500px] p-6">
                     <form
@@ -18,11 +18,11 @@
                             class="text-center text-red-500">{{ messages }}</small>
                         <h4
                             class="text-xl text-center font-semibold my-4">
-                            Login
+                            Register
                         </h4>
                         <UFormGroup
                             class="w-full"
-                            label="Username | Email"
+                            label="Username"
                             name="username">
                             <UInput
                                 type="text"
@@ -38,10 +38,26 @@
                         </UFormGroup>
                         <UFormGroup
                             class="w-full"
+                            label="Email"
+                            name="">
+                            <UInput
+                                type="text"
+                                color="white"
+                                variant="outline"
+                                size="md"
+                                name=""
+                                minlength="3"
+                                maxlength="50"
+                                placeholder="Enter your email"
+                                required
+                                v-model="user.email"/>
+                        </UFormGroup>
+                        <UFormGroup
+                            class="w-full"
                             label="Password"
                             name="password">
                             <UInput
-                                :type="show ? 'text' : 'password'"
+                                :type="showPassword ? 'text' : 'password'"
                                 color="white"
                                 variant="outline"
                                 size="md"
@@ -53,14 +69,42 @@
                                 required/>
                             <UButton
                                 type="button"
-                                @click="show = !show"
+                                @click="showPassword = !showPassword"
                                 variant="link"
                                 color="white"
                                 size="sm"
                                 class="absolute top-0 right-0 w-auto h-full border-0 outline-0"
                                 square>
                             <UIcon
-                                :name="show ? 'fluent:eye-off-20-regular' : 'fluent:eye-24-regular'"
+                                :name="showPassword ? 'fluent:eye-off-20-regular' : 'fluent:eye-24-regular'"
+                                class="text-xl"/>
+                            </UButton>
+                        </UFormGroup>
+                        <UFormGroup
+                            class="w-full"
+                            label="Password"
+                            name="password">
+                            <UInput
+                                :type="showConfirmPassword ? 'text' : 'password'"
+                                color="white"
+                                variant="outline"
+                                size="md"
+                                name="password"
+                                minlength="6"
+                                maxlength="20"
+                                placeholder="Enter you password"
+                                required
+                                v-model="user.confirm_password"/>
+                            <UButton
+                                type="button"
+                                @click="showConfirmPassword = !showConfirmPassword"
+                                variant="link"
+                                color="white"
+                                size="sm"
+                                class="absolute top-0 right-0 w-auto h-full border-0 outline-0"
+                                square>
+                            <UIcon
+                                :name="showConfirmPassword ? 'fluent:eye-off-20-regular' : 'fluent:eye-24-regular'"
                                 class="text-xl"/>
                             </UButton>
                         </UFormGroup>
@@ -74,7 +118,7 @@
                         </div>
                         <UButton
                             type="submit"
-                            color="blue"
+                            color="black"
                             variant="solid"
                             size="md"
                             class="flex items-center justify-center text-md rounded-full mt-6"
@@ -94,7 +138,7 @@
                         square/>
                 </div>
                 <div
-                    class="rounded-l-lg w-[500px] h-full relative *:text-white overflow-hidden">
+                    class="rounded-r-lg w-[500px] h-full relative *:text-white overflow-hidden">
                     
                     <div class="w-full h-full">
                         <img 
@@ -158,7 +202,9 @@ useSeoMeta({
 interface User
 {
     username: string,
-    password: string
+    password: string,
+    email: string,
+    confirm_password: string
 }
 /**
  * End::Declare interface section
@@ -178,14 +224,17 @@ const validate: Context = new Context(new Validation());
  */
 const user: Ref<User> = ref<User>({
     username: '',
-    password: ''
+    password: '',
+    email: '',
+    confirm_password: ''
 });
 const { authenticateUser } = useAuthStore();
 const {
     authenticated,
     messages } = storeToRefs(useAuthStore());
 const router = useRouter();
-const show: Ref<boolean> = ref<boolean>(false);
+const showPassword: Ref<boolean> = ref<boolean>(false);
+const showConfirmPassword: Ref<boolean> = ref<boolean>(false);
 /**
  * End::Declare variable section
  */

@@ -85,15 +85,25 @@
                         icon="iconamoon:menu-burger-horizontal-fill"
                         class="border-none"/>    
                 </UDropdown>
-                <UDropdown 
-                    :items="userItems" 
-                    :popper="{ arrow: true }">
-                        <div class="w-[33px] h-[33px] overflow-hidden rounded-full shadow-md">
-                            <img 
-                                src="https://avatars.githubusercontent.com/u/739984?v=4" 
-                                alt=""
-                                class="w-full h-full object-cover">
-                        </div>
+                <UDropdown
+                    class="flex"
+                    :items="userItems"
+                    :popper="{ arrow: true}">
+                    <template #account="{ item }">
+                        <ULink
+                            :to="item.to"
+                            active-class="text-black"
+                            inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                            {{ item.label }}
+                        </ULink>
+                    </template>
+                    <div
+                        class="w-[33px] h-[33px] overflow-hidden rounded-full shadow-sm">
+                        <img 
+                            :src="UserImage" 
+                            alt=""
+                            class="w-full h-full object-cover">
+                    </div>
                 </UDropdown>
             </div>
         </div>
@@ -102,7 +112,8 @@
 
 <script setup lang="ts">
 import { 
-    Logo 
+    Logo,
+    UserImage
 } from '~/assets/images';
 
 /**
