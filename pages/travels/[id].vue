@@ -152,46 +152,6 @@ const items: any = [
   'https://picsum.photos/1920/1080?random=5',
   'https://picsum.photos/1920/1080?random=6'
 ];
-const colors = [
-    {
-        color: 'red-400'
-    },
-    {
-        color: 'blue-400'
-    },
-    {
-        color: 'gray-400'
-    },
-    {
-        color: 'pink-400'
-    },
-    {
-        color: 'green-400'
-    },
-    {
-        color: 'yellow-400'
-    },
-    {
-        color: 'white'
-    }
-];
-const sizes = [
-    {
-        size: 'SM'
-    },
-    {
-        size: 'MD'
-    },
-    {
-        size: 'LG'
-    },
-    {
-        size: 'XL'
-    },
-    {
-        size: '2XL'
-    },
-]
 /**
  * End::Declare variable section
  */
