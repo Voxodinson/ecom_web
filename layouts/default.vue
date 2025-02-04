@@ -7,13 +7,35 @@
             <NavigationBar/>
         </div>
     </div>
-    <div class="w-full">
+    <div class="w-full relative">
         <NuxtPage/>
+        <div class=" fixed bottom-6 right-6">
+            <UPopover 
+                :popper="{ 
+                    offsetDistance: 6, 
+                    placement: 'top-end' 
+                }">
+                <UButton 
+                    color="white" 
+                    variant="soft"
+                    label="Chatbot"
+                    icon="svg-spinners:blocks-shuffle-3"
+                    class="bg-[#2973B2] text-white rounded-full py-3 px-4"/>
+                <template 
+                    #panel>
+                    <div 
+                        class="p-3 w-[400px] h-[600px]">
+                        Chatbot
+                    </div>
+                </template>
+            </UPopover>
+        </div>
     </div>
     <div 
         class="w-full h-fit">
         <Footer/>
     </div>
+    
 </template>
 
 <script setup>

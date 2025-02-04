@@ -1,4 +1,15 @@
 <template>
+    <UButton
+        @click.prevent="$router.back()"
+        variant="soft"
+        color="white"
+        class=" absolute top-6 left-6 group text-[1rem] hover:underline cursor-pointer">
+        <UIcon  
+            name="material-symbols-light:arrow-back-ios-new-rounded"
+            class="w-5 h-5  group-hover:-translate-x-2 transition">
+        </UIcon>
+        Back
+    </UButton>
     <div
         class="w-full mx-auto flex h-[100vh]">
         <div
@@ -108,21 +119,13 @@
                                 class="text-xl"/>
                             </UButton>
                         </UFormGroup>
-                        <div 
-                            class="w-full flex items-center justify-end">
-                            <ULink
-                                to=""
-                                class="text-[.7rem] hover:underline">
-                                Forgot password?
-                            </ULink>
-                        </div>
                         <UButton
                             type="submit"
                             color="black"
                             variant="solid"
                             size="md"
                             class="flex items-center justify-center text-md rounded-full mt-6"
-                            label="Login"
+                            label="Register now"
                             square/>
                     </form>
                     <UDivider 
@@ -151,17 +154,18 @@
                         <div 
                             class=" flex flex-col items-center justify-center">
                             <h3
-                                class="text-[1.6rem] text-wrap">
-                                Welcome back Username!
+                                class="text-[1.6rem] text-wrap text-center">
+                                Create Your Account & Start Shopping Today!
                             </h3>
                             <p
                                 class="text-center text-[.8rem]">
-                                Enter your personal details and embark on an exciting journey with us. Sign up now and start exploring new opportunities!                            </p>
+                                Welcome to [Your Store Name], your one-stop destination for the best deals, exclusive discounts, and a seamless shopping experience. Sign up now and unlock a world of benefits tailored just for you!
+                            </p>
                         </div>
                         <ULink
                             to="/login"
                             class="w-[200px] py-1 text-center rounded-full border-[1px] bg-opacity-50 bg-white border-white ">
-                            Register
+                            Login
                         </ULink>
                     </div>
                 </div>
