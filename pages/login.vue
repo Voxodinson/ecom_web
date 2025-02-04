@@ -1,6 +1,18 @@
 <template>
+    <UButton
+        @click.prevent="$router.back()"
+        variant="soft"
+        color="white"
+        class=" absolute top-6 left-6 group text-[1rem] hover:underline cursor-pointer">
+        <UIcon  
+            name="material-symbols-light:arrow-back-ios-new-rounded"
+            class="w-5 h-5  group-hover:-translate-x-2 transition">
+        </UIcon>
+        Back
+    </UButton>
     <div
         class="w-full mx-auto flex h-[100vh]">
+        
         <div
             class="panel-image bg-slate-50 w-full flex justify-center items-center">
             <div
@@ -142,7 +154,7 @@ import {
 import {
     useAuthStore
 } from '@/store/auth';
-import { ULink } from "#components";
+import { UButton, ULink } from "#components";
   
 definePageMeta({
     layout: 'login',

@@ -186,8 +186,9 @@ const userItems = [
     ], 
     [
         {
-            label: 'Sign out',
-            icon: 'i-heroicons-arrow-left-on-rectangle'
+            label: 'Sign In',
+            icon: 'si:sign-in-duotone',
+            to: '/login'
         }
     ]
 ];
