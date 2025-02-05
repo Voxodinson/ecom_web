@@ -9,7 +9,7 @@
     </div>
     <div class="w-full relative">
         <NuxtPage/>
-        <div class=" fixed bottom-6 right-6">
+        <div class=" fixed bottom-6 z-30 right-6">
             <UPopover 
                 :popper="{ 
                     offsetDistance: 6, 
@@ -22,10 +22,108 @@
                     icon="svg-spinners:blocks-shuffle-3"
                     class="bg-[#2973B2] text-white rounded-full py-3 px-4"/>
                 <template 
-                    #panel>
+                    #panel="{ close }">
                     <div 
-                        class="p-3 w-[400px] h-[600px]">
-                        Chatbot
+                        class="w-[550px] h-[650px]">
+                        <div 
+                            class="w-full">
+                            <div 
+                                class="w-full relative overflow-hidden flex items-center justify-center h-[50px]">
+                                <img 
+                                    :src="PatternBG" 
+                                    alt="image"
+                                    class="w-full object-cover">
+                                <div 
+                                    class="z-30 w-full h-full p-3 absolute top-0 flex items-center justify-between left-0">
+                                    <h3
+                                        class="text-white font-semibold">
+                                        Recommend & Help Bot
+                                    </h3>
+                                    <UIcon 
+                                        name="meteor-icons:xmark" 
+                                        class="w-6 h-6 text-white cursor-pointer hover:scale-110 transition" 
+                                        @click="close"/>
+                                </div>
+                                
+                            </div>
+                            <div 
+                                class="w-full h-[calc(650px-50px)] overflow-y-auto p-3">
+                                <div 
+                                    class="h-fit flex flex-col gap-2">
+                                    <div 
+                                        class="w-full flex gap-3">
+                                        <div 
+                                            class="w-[40px] h-[40px] rounded-full overflow-hidden">
+                                            <img 
+                                                :src="BotImage" 
+                                                alt="image"
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div 
+                                            class="w-[80%] bg-white shadow-md p-3 rounded-r-md rounded-b-md  border-[1px] border-gray-200">
+                                            <p
+                                                class="text-wrap text-[#184e7c]">
+                                                {{ question }}
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div
+                                        v-if="userQuestion === ''"
+                                        class="ml-[50px] w-[80%] flex flex-col gap-2">
+                                        <div
+                                            v-for="(q, idx) in defaultQuestion"
+                                            :key="idx"
+                                            @click="(): void => {
+                                                    userQuestion = q as string;
+                                            }"
+                                            class="border-[1px] border-blue-200 hover:border-blue-400 cursor-pointer transition group w-fit px-4 py-2 rounded-full">
+                                            <p
+                                                class="text-[.8rem] text-blue-400 group-hover:text-blue-600">
+                                                {{ q }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div 
+                                        v-if="userQuestion != ''"
+                                        class="w-full flex justify-end gap-3">
+                                        <div 
+                                            class="w-[80%] bg-gradient-to-r from-blue-500 to-[#07497f]  shadow-md p-3 rounded-l-md rounded-b-md  border-[1px] border-gray-200">
+                                            <p
+                                                class="text-wrap text-white">
+                                                {{ userQuestion }}
+                                            </p>
+                                        </div>
+                                        <div 
+                                            class="w-[40px] h-[40px] rounded-full overflow-hidden">
+                                            <img 
+                                                :src="BotImage" 
+                                                alt="image"
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
+                                    <div
+                                        v-for="i in 10"
+                                        v-if="userQuestion != ''"
+                                        class="w-full flex gap-3">
+                                        <div 
+                                            class="w-[40px] h-[40px] rounded-full overflow-hidden">
+                                            <img 
+                                                :src="BotImage" 
+                                                alt="image"
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div 
+                                            class="w-[80%] bg-white shadow-md p-3 rounded-r-md rounded-b-md  border-[1px] border-gray-200">
+                                            <p
+                                                class="text-wrap text-[#184e7c]">
+                                                {{ returnAnswer }}
+                                            </p>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </template>
             </UPopover>
@@ -35,20 +133,41 @@
         class="w-full h-fit">
         <Footer/>
     </div>
-    
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { 
     NavigationBar, 
     Footer 
 } from '~/components/ui';
+import { 
+    PatternBG, 
+    BotImage 
+} from '~/assets/images';
+import { 
+    ref, 
+    onMounted, 
+    onUnmounted 
+} from 'vue';
 
-import { ref, onMounted, onUnmounted } from 'vue';
-
-const isVisible = ref(true);
+/**
+ * Begin::Declare variable section
+ */
+const isVisible: Ref<boolean> = ref<boolean>(true);
 let lastScrollY = 0;
-
+const question: Ref<string> = ref<string>('Welcome to [Your Store Name]! Im here to make your shopping experience smooth and enjoyable. How can I assist you today?');
+const defaultQuestion =  [
+    "What type of products are you interested in today?",
+    "Are you shopping for yourself or looking for a gift?",
+    "Do you have a preferred brand, color, or size?",
+    "Need help with a return or exchange? I can guide you through the process.",
+    "Would you like to review our return policy before making a purchase?"
+]
+const userQuestion: Ref<string> = ref<string>('');
+const returnAnswer: Ref<string> = ref<string>('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat eveniet quia voluptas quam unde fuga consequatur, eius commodi tempora quisquam cumque accusantium cupiditate doloremque consectetur vitae iure nulla debitis ab!');
+/**
+ * End::Declare variable section
+ */
 const handleScroll = () => {
     const currentScrollY = window.scrollY;
     isVisible.value = currentScrollY < lastScrollY || currentScrollY < 10;
