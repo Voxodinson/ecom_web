@@ -24,7 +24,7 @@
                 <template 
                     #panel="{ close }">
                     <div 
-                        class="w-[550px] h-[650px]">
+                        class="w-[550px] h-[650px] relative">
                         <div 
                             class="w-full">
                             <div 
@@ -47,7 +47,7 @@
                                 
                             </div>
                             <div 
-                                class="w-full h-[calc(650px-50px)] overflow-y-auto p-3">
+                                class="w-full h-[calc(650px-105px)] pb-9 overflow-y-auto p-3">
                                 <div 
                                     class="h-fit flex flex-col gap-2">
                                     <div 
@@ -122,6 +122,15 @@
                                         </div> 
                                     </div>
                                 </div>
+                            </div>
+                            <div 
+                                class="w-full h-[55px] flex items-center justify-center  bg-gradient-to-r from-blue-500 to-[#07497f]  p-3 border-t-[1px] border-gray-200">
+                                <UButton 
+                                    color="white" 
+                                    variant="solid"
+                                    label=""
+                                    icon="material-symbols:add-2-rounded"
+                                    class="p-3 rounded-full text-[#184e7c] bg-white"/>
                             </div>
                         </div>
                     </div>

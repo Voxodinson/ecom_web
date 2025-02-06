@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full h-fit flex items-center bg-[#2973B2]  justify-center">
+        class="w-full h-fit flex items-center bg-gradient-to-r from-blue-500 to-[#07497f] justify-center">
         <div class="w-full h-[55px] pr-3 bg-opacity-80 flex items-center justify-between">
             <div class="w-[150px] h-[150px]">
                 <img 
