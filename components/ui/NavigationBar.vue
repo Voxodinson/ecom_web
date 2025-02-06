@@ -62,9 +62,14 @@
                     <UChip
                         size="2xl"
                         text="9">
-                        <UButton 
-                            icon="material-symbols:shopping-cart-outline" 
-                            color="gray"/>
+                        <ULink
+                            to="/cart"
+                            active-class="text-black"
+                            inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                            <UButton 
+                                icon="material-symbols:shopping-cart-outline" 
+                                color="gray"/>
+                        </ULink>
                     </UChip>
                 </div>
                 <UDropdown

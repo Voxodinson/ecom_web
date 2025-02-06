@@ -44,11 +44,11 @@
                                         class="w-6 h-6 text-white cursor-pointer hover:scale-110 transition" 
                                         @click="close"/>
                                 </div>
-                                
                             </div>
                             <div 
                                 class="w-full h-[calc(650px-105px)] pb-9 overflow-y-auto p-3">
                                 <div 
+                                    v-if="isOpenNewQuestion != true"
                                     class="h-fit flex flex-col gap-2">
                                     <div 
                                         class="w-full flex gap-3">
@@ -77,7 +77,7 @@
                                             @click="(): void => {
                                                     userQuestion = q as string;
                                             }"
-                                            class="border-[1px] border-blue-200 hover:border-blue-400 cursor-pointer transition group w-fit px-4 py-2 rounded-full">
+                                            class="border-[1px] border-blue-200 hover:border-blue-400 cursor-pointer transition w-fit px-4 py-2 rounded-full group">
                                             <p
                                                 class="text-[.8rem] text-blue-400 group-hover:text-blue-600">
                                                 {{ q }}
@@ -122,15 +122,53 @@
                                         </div> 
                                     </div>
                                 </div>
+                                <div 
+                                    v-if="isOpenNewQuestion"
+                                    class="w-full h-fit flex flex-col gap-2">
+                                    <div class="w-full h-fit fixed">
+                                        <UButton
+                                            @click="(): void =>{
+                                                toggleNewQuestion(false);
+                                            }"
+                                            variant="soft"
+                                            color="white"
+                                            size="sm"
+                                            label="Back"
+                                            icon="material-symbols-light:arrow-back-ios-new-rounded"
+                                            class="text-[1rem] hover:underline cursor-pointer"/>
+                                    </div>
+                                    <div 
+                                        class="flex flex-col gap-2 px-8 mt-[40px]">
+                                        <div
+                                            v-for="(q, idx) in defaultQuestion"
+                                            :key="idx"
+                                            @click="(): void => {
+                                                    userQuestion = q as string;
+                                                    if(userQuestion != ''){
+                                                        toggleNewQuestion(false);
+                                                    }
+                                            }"
+                                            class="border-[1px] border-blue-200 hover:border-blue-400 cursor-pointer transition w-fit px-4 py-2 rounded-full">
+                                            <p 
+                                                class="text-[.8rem] text-blue-400 hover:text-blue-600">
+                                                {{ q }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div 
+                                v-if="userQuestion != ''"
                                 class="w-full h-[55px] flex items-center justify-center  bg-gradient-to-r from-blue-500 to-[#07497f]  p-3 border-t-[1px] border-gray-200">
                                 <UButton 
                                     color="white" 
                                     variant="solid"
                                     label=""
                                     icon="material-symbols:add-2-rounded"
-                                    class="p-3 rounded-full text-[#184e7c] bg-white"/>
+                                    class="p-3 rounded-full text-[#184e7c] bg-white hover:bg-blue-200"
+                                    @click="(): void => {
+                                        toggleNewQuestion(true);
+                                    }"/>
                             </div>
                         </div>
                     </div>
@@ -163,9 +201,20 @@ import {
  * Begin::Declare variable section
  */
 const isVisible: Ref<boolean> = ref<boolean>(true);
+const isOpenNewQuestion: Ref<boolean> = ref<boolean>(false);
 let lastScrollY = 0;
 const question: Ref<string> = ref<string>('Welcome to [Your Store Name]! Im here to make your shopping experience smooth and enjoyable. How can I assist you today?');
 const defaultQuestion =  [
+    "What type of products are you interested in today?",
+    "Are you shopping for yourself or looking for a gift?",
+    "Do you have a preferred brand, color, or size?",
+    "Need help with a return or exchange? I can guide you through the process.",
+    "Would you like to review our return policy before making a purchase?",
+    "What type of products are you interested in today?",
+    "Are you shopping for yourself or looking for a gift?",
+    "Do you have a preferred brand, color, or size?",
+    "Need help with a return or exchange? I can guide you through the process.",
+    "Would you like to review our return policy before making a purchase?",
     "What type of products are you interested in today?",
     "Are you shopping for yourself or looking for a gift?",
     "Do you have a preferred brand, color, or size?",
@@ -177,11 +226,22 @@ const returnAnswer: Ref<string> = ref<string>('Lorem ipsum dolor sit amet, conse
 /**
  * End::Declare variable section
  */
-const handleScroll = () => {
+
+/**
+ * Begin::Some Logical section
+ */
+ const handleScroll = () => {
     const currentScrollY = window.scrollY;
     isVisible.value = currentScrollY < lastScrollY || currentScrollY < 10;
     lastScrollY = currentScrollY;
 };
+
+const toggleNewQuestion = (value: boolean): void => {
+    isOpenNewQuestion.value = value as boolean;
+}
+/**
+ * End::Some Logical section
+ */
 
 onMounted(() => {
    window.addEventListener('scroll', handleScroll);
