@@ -64,7 +64,6 @@
                         class="mt-0.5 pl-2">
                         {{ data.rating.count }} reviews
                     </span>
-                    
                 </div>
                 <div 
                     class="w-full gap-3 flex items-center">

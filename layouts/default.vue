@@ -24,7 +24,7 @@
                 <template 
                     #panel="{ close }">
                     <div 
-                        class="w-[550px] h-[650px]">
+                        class="w-[550px] h-[650px] relative">
                         <div 
                             class="w-full">
                             <div 
@@ -123,6 +123,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <UIcon 
+                                name="iconoir:chat-bubble-solid" 
+                                class="w-10 h-10 bg-gradient-to-r from-blue-500 to-[#07497f] absolute bottom-2 left-2 shadow-md cursor-pointer hover:scale-110 transition" 
+                                @click=""/>
                         </div>
                     </div>
                 </template>
