@@ -15,12 +15,15 @@
                     offsetDistance: 6, 
                     placement: 'top-end' 
                 }">
-                <UButton 
+                <div 
                     color="white" 
                     variant="soft"
-                    label="Chatbot"
-                    icon="svg-spinners:blocks-shuffle-3"
-                    class="bg-[#2973B2] text-white rounded-full py-3 px-4"/>
+                    class="w-[60px] h-[60px] rounded-full overflow-hidden">
+                    <img 
+                        :src="BotImage" 
+                        alt=""
+                        class="w-full h-full hover:scale-110 transition object-cover">
+                </div>
                 <template 
                     #panel="{ close }">
                     <div 
@@ -35,9 +38,16 @@
                                     class="w-full object-cover">
                                 <div 
                                     class="z-30 w-full h-full p-3 absolute top-0 flex items-center justify-between left-0">
+                                    <UIcon
+                                        v-if="isOpenNewQuestion"
+                                        @click="(): void =>{
+                                            toggleNewQuestion(false);
+                                        }"
+                                        name="line-md:chevron-left-circle-twotone"
+                                        class="w-6 h-6 text-white cursor-pointer hover:scale-110 transition"/>
                                     <h3
                                         class="text-white font-semibold">
-                                        Recommend & Help Bot
+                                        {{ isOpenNewQuestion ? 'New Chat' : 'Recommend & Help Bot' }}
                                     </h3>
                                     <UIcon 
                                         name="meteor-icons:xmark" 
@@ -46,7 +56,8 @@
                                 </div>
                             </div>
                             <div 
-                                class="w-full h-[calc(650px-105px)] pb-9 overflow-y-auto p-3">
+                                class="w-full pb-9 overflow-y-auto p-3"
+                                :class="userQuestion ? 'h-[calc(650px-105px)]' : 'h-[calc(650px-55px)]'">
                                 <div 
                                     v-if="isOpenNewQuestion != true"
                                     class="h-fit flex flex-col gap-2">
@@ -125,35 +136,20 @@
                                 <div 
                                     v-if="isOpenNewQuestion"
                                     class="w-full h-fit flex flex-col gap-2">
-                                    <div class="w-full h-fit fixed">
-                                        <UButton
-                                            @click="(): void =>{
-                                                toggleNewQuestion(false);
-                                            }"
-                                            variant="soft"
-                                            color="white"
-                                            size="sm"
-                                            label="Back"
-                                            icon="material-symbols-light:arrow-back-ios-new-rounded"
-                                            class="text-[1rem] hover:underline cursor-pointer"/>
-                                    </div>
-                                    <div 
-                                        class="flex flex-col gap-2 px-8 mt-[40px]">
-                                        <div
-                                            v-for="(q, idx) in defaultQuestion"
-                                            :key="idx"
-                                            @click="(): void => {
-                                                    userQuestion = q as string;
-                                                    if(userQuestion != ''){
-                                                        toggleNewQuestion(false);
-                                                    }
-                                            }"
-                                            class="border-[1px] border-blue-200 hover:border-blue-400 cursor-pointer transition w-fit px-4 py-2 rounded-full">
-                                            <p 
-                                                class="text-[.8rem] text-blue-400 hover:text-blue-600">
-                                                {{ q }}
-                                            </p>
-                                        </div>
+                                    <div
+                                        v-for="(q, idx) in defaultQuestion"
+                                        :key="idx"
+                                        @click="(): void => {
+                                                userQuestion = q as string;
+                                                if(userQuestion != ''){
+                                                    toggleNewQuestion(false);
+                                                }
+                                        }"
+                                        class="border-[1px] border-blue-200 hover:border-blue-400 cursor-pointer transition w-fit px-4 py-2 rounded-full">
+                                        <p 
+                                            class="text-[.8rem] text-blue-400 hover:text-blue-600">
+                                            {{ q }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>

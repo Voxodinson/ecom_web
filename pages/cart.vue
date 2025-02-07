@@ -21,18 +21,11 @@
             <div
                 v-for="(item, idx) in data.splice(0, 3)" 
                 :key="idx"
-                class="w-[85%] grid grid-cols-[5%_20%_35%_20%_20%]  border-[1px] shadow-md border-gray-200 bg-gray-100 p-3 rounded-md ">
+                class="w-[85%] grid grid-cols-[5%_20%_30%_20%_20%_5%]  border-[1px] shadow-md border-gray-200 bg-gray-100 p-3 rounded-md ">
                 <div 
                     class="flex items-center justify-start">
-                    <UButton
-                        size="sm"
-                        color="white"
-                        variant="soft"
-                        class="p-0 ml-2">
-                        <UIcon 
-                            name="material-symbols:delete-outline" 
-                            class="text-2xl text-red-500 hover:scale-110 transition" />
-                    </UButton>
+                    <UCheckbox
+                        class="w-6 h-6"/>
                 </div>
                 <div 
                     class="">
@@ -110,6 +103,21 @@
                         $ {{ item.price }}
                     </span>
                 </div>
+                <div 
+                    class="flex items-center justify-start">
+                    <UButton
+                        size="sm"
+                        color="white"
+                        variant="soft"
+                        class="p-0 ml-2">
+                        <UIcon 
+                            name="material-symbols:delete-outline" 
+                            class="text-2xl text-red-500 hover:scale-110 transition" />
+                    </UButton>
+                </div>
+            </div>
+            <div class="">
+                s
             </div>
         </div>
     </div>
