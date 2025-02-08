@@ -7,9 +7,12 @@
             <NavigationBar/>
         </div>
     </div>
-    <div class="w-full relative">
+    <div 
+        class="w-full relative">
         <NuxtPage/>
-        <div class=" fixed bottom-6 z-30 right-6">
+        <div   
+            v-if="route.path != '/cart'"  
+            class=" fixed bottom-6 z-30 right-6">
             <UPopover 
                 :popper="{ 
                     offsetDistance: 6, 
@@ -173,6 +176,7 @@
         </div>
     </div>
     <div 
+        v-if="route.path !== '/cart'"
         class="w-full h-fit">
         <Footer/>
     </div>
@@ -192,10 +196,15 @@ import {
     onMounted, 
     onUnmounted 
 } from 'vue';
+import { 
+    useRoute 
+} from 'nuxt/app'
+
 
 /**
  * Begin::Declare variable section
  */
+const route = useRoute();
 const isVisible: Ref<boolean> = ref<boolean>(true);
 const isOpenNewQuestion: Ref<boolean> = ref<boolean>(false);
 let lastScrollY = 0;
