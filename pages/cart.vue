@@ -1,9 +1,9 @@
 <template>
     
     <div
-        class="w-full flex h-fit flex-col mt-[55px] pb-10 p-3 bg-white">
+        class="w-full relative flex h-fit flex-col mt-[55px] pb-10 p-3 bg-white">
         <div 
-            class="z-30">
+            class="fixed top-[60px] left-4 z-30  ">
             <UButton
                 @click.prevent="$router.back()"
                 variant="soft"
@@ -19,9 +19,9 @@
         <div 
             class="flex items-center justify-start flex-col gap-4 mt-3">
             <div
-                v-for="(item, idx) in data.splice(0, 3)" 
+                v-for="(item, idx) in data.splice(0, 10)" 
                 :key="idx"
-                class="w-[85%] grid grid-cols-[5%_20%_30%_20%_20%_5%]  border-[1px] shadow-md border-gray-200 bg-gray-100 p-3 rounded-md ">
+                class="w-[80%] grid grid-cols-[5%_20%_30%_20%_20%_5%]  border-[1px] shadow-md border-gray-200 bg-gray-100 p-3 rounded-md ">
                 <div 
                     class="flex items-center justify-start">
                     <UCheckbox
@@ -116,10 +116,47 @@
                     </UButton>
                 </div>
             </div>
-            <div class="">
-                s
-            </div>
         </div>
+    </div>
+    <div
+        class=" fixed bottom-6 z-30 right-6">
+        <UPopover 
+            :popper="{ 
+                offsetDistance: 18, 
+                placement: 'top-start' 
+            }">
+            <UButton 
+                icon="material-symbols:shopping-cart-checkout-outline-rounded" 
+                color="gray"
+                class="p-2 rounded-full relative bg-gradient-to-r from-blue-500 to-[#07497f] text-white text-[1rem]">
+                <span
+                    class=" absolute -top-4 -right-1 bg-red-400 px-2 py-0.5 rounded-full text-[.8rem]">
+                    0
+                </span>
+                Checkout
+            </UButton>     
+            <template 
+                #panel="{ close }">
+                <div 
+                    class="w-[550px] h-[650px] relative">
+                    <div 
+                        class="z-30 w-full h-[50px] p-3 border-b-[1px] border-gray-200 flex items-center justify-between left-0">
+                        <h3
+                            class="text-black font-semibold">
+                            About to checkouts
+                        </h3>
+                        <UIcon 
+                            name="meteor-icons:xmark" 
+                            class="w-6 h-6 text-black cursor-pointer hover:scale-110 transition" 
+                            @click="close"/>
+                    </div>
+                    <div 
+                        class="h-[400px] bg-slate-200 w-full">
+                        
+                    </div>
+                </div>
+            </template>
+        </UPopover>
     </div>
 </template>
 
@@ -128,6 +165,11 @@ import {
     ContextAPI,
     SimpleAPI
 } from "@/composable/apiHandler";
+import { 
+    ref, 
+    onMounted, 
+    onUnmounted 
+} from 'vue';
 import {
     GetDataContext,
     GetDataNormalForm
@@ -156,7 +198,9 @@ const context: GetDataContext = new GetDataContext(new GetDataNormalForm());
  * Begin::Declare variable section
  */
 const route = useRoute();
-const productId = route.params.id;
+const isVisible: Ref<boolean> = ref<boolean>(true);
+const isOpenNewQuestion: Ref<boolean> = ref<boolean>(false);
+let lastScrollY = 0;
 const data: Ref<any> = ref<any>([]);
 const rating = computed(() => {
   if (!data.value.length) return 0;
@@ -184,7 +228,16 @@ const rating = computed(() => {
 /**
  * End::Fetch data section
  */
- onMounted(async (): Promise<void> => {
+
+/**
+ * Begin::Some Logical section
+ */
+
+/**
+ * End::Some Logical section
+ */
+
+onMounted(async (): Promise<void> => {
     await fetchData();
-})
+});
 </script>
