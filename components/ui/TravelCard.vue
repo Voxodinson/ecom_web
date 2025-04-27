@@ -2,26 +2,59 @@
     <div
         v-for="(data, idx) in props.data"
         :key="idx"
-        class="w-full h-[250px] flex flex-col justify-between rounded-md relative rmd overflow-hidden">
-        <img 
-            :src="(data.image as string)" 
-            alt="image"
-            class="w-full h-full object-cover">
-        <div 
-            class="absolute bottom-0 left-0 w-full h-full flex flex-col justify-end p-3 gap-3 bg-black bg-opacity-20">
-            <h3
-                class="text-white text-[1.2rem]">
-                {{ data.title }}
-            </h3>
-            <p
-                class="text-white text-[.8rem] text-ellipsis overflow-hidden whitespace-nowrap truncate w-[300px]">
-                {{ data.description }}
-            </p>
+        class="w-full h-fit flex flex-col border-gray-3 justify-between rounded-md relative rmd overflow-hidden">
+        <div class="h-[250px] w-full rounded-md overflow-hidden">
             <ULink
                 :to="`/travels/${data.id}`"
-                class="w-[200px] p-0.5 px-4 rounded-md text-white border-white bg-white bg-opacity-30 hover:bg-opacity-20 border-[1px]">
-                View Detais
+                class="w-full h-full cursor-pointer group">
+                <img 
+                    :src="(data.image as string)" 
+                    alt="image"
+                    class="w-full h-full object-cover group-hover:scale-110 transition">    
             </ULink>
+        </div>
+        <div 
+            class="w-full py-3 h-fit flex flex-col">
+            <h3
+                class="text-gray-600 text-[1rem] overflow-hidden text-ellipsis w-full line-clamp-1">
+                {{ data.title }}
+            </h3>
+            <p 
+                class="text-gray-400 text-[.8rem] overflow-hidden text-ellipsis w-full line-clamp-2">
+                {{ data.description }}
+            </p>
+            <div class="w-full mt-6 flex flex-wrap items-center gap-2">
+                <div 
+                    class="w-fit flex gap-2">
+                    <UIcon
+                        name="material-symbols:favorite-outline"
+                        class="w-7 h-7 text-gray-400 hover:scale-110 transition cursor-pointer"/>
+                </div>
+                <span
+                    class="text-gray-400 font-thin mx-2">
+                    |
+                </span>
+                <div 
+                    class="flex gap-3 items-center bg-blue-100 px-3 py-1 rounded-full w-fit">
+                    <UIcon
+                        name="hugeicons:money-send-square"
+                        class="w-5 h-5 text-blue-500"/>
+                    <div 
+                        class="w-fit text-[.8rem]">
+                        $100 - $200
+                    </div>
+                </div>
+                <div 
+                    class="flex gap-3 items-center bg-green-200 px-3 py-1 rounded-full w-fit">
+                    <UIcon
+                        name="material-symbols-light:map-search-outline"
+                        class="w-5 h-5 text-green-500"/>
+                    <div 
+                        class="w-fit text-[.8rem]">
+                        Map View
+                    </div>
+                </div>
+            </div>
         </div>
    </div>
 </template>

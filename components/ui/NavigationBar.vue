@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full h-fit flex items-center bg-gradient-to-r from-blue-500 to-[#07497f] justify-center">
+        class="w-full h-fit flex items-center justify-center">
         <div class="w-full h-[55px] pr-3 bg-opacity-80 flex items-center justify-between">
             <div class="w-[150px] h-[150px]">
                 <img 
@@ -16,7 +16,7 @@
                             :key="idx"
                             :to="item.to"
                             active-class="bg-white bg-black text-black py-2 px-4 rounded-full "
-                            class="text-[.9rem]"
+                            class="text-[.9rem] uppercase "
                             inactive-class="text-white hover:text-blue-300 font-normal py-2 px-4 rounded-full hover:bg-white transition">
                             {{ item.label }}
                         </ULink>
@@ -187,6 +187,11 @@ const userItems = [
         {
             label: 'User Profile',
             icon: 'i-heroicons-cog-8-tooth'
+        },
+        {
+            label: 'Favorites',
+            icon: 'material-symbols:favorite-outline',
+            to: '/login'
         }
     ], 
     [

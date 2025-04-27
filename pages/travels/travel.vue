@@ -1,7 +1,88 @@
 <template>
-    <div class="w-full p-6 pb-0 mt-[55px]">
+    <div 
+        class="w-full h-[100vh]  relative">
+        <img 
+            src="https://t3.ftcdn.net/jpg/01/88/99/80/360_F_188998099_hHmWxOVrxDK3Fl7anQQtibt0aj52wqoU.jpg" 
+            alt=""
+            class="w-full h-full object-cover top-0 absolute z-10">
+        <div class="w-full h-full absolute top-0 left-0 flex flex-col items-center justify-center z-20">
+            <div
+                class="w-[80%] flex flex-col items-center justify-center gap-3">
+                <h1
+                    class="text-[3rem] capitalize font-bold text-white">
+                    Embrace Serenity in every destination
+                </h1>
+                <p
+                    class="text-center text-white text-[.8rem]">
+                    No matter where life's journey takes you — from vibrant cities to peaceful retreats — true serenity comes from within. Embracing serenity means finding calm in every experience, appreciating each moment with gratitude and presence. Every destination holds the potential for peace if you approach it with an open heart. Our website helps make that journey easier by recommending user-friendly places designed for comfort, relaxation, and unforgettable memories. Whether you're seeking adventure or a quiet escape, we guide you to destinations that welcome you warmly. Serenity isn't just found — it’s created, wherever you go, and however you choose to travel.
+                </p>
+            </div>
+            <div class="w-[70%] h-fit flex flex-col gap-3 mt-12 rounded-md backdrop-blur-md bg-white/70 p-3 ">
+                <div class="w-full  rounded-md flex">
+                    <UFormGroup
+                        class="w-full"
+                        label="Travel Spend Range ($)"
+                        name="">
+                        <div class="grid grid-cols-2 gap-3 w-full">
+                            <UInput 
+                                placeholder="From" 
+                                class=" bg-gray-300 rounded-full"
+                                size="lg"/>
+                            <UInput 
+                                placeholder="To" 
+                                class=" bg-gray-300 rounded-full"
+                                size="lg"/>
+                        </div>
+                    </UFormGroup>
+                </div>
+                <div 
+                    class="w-full grid grid-cols-3 gap-3 rounded-md p-2 bg-white">
+                    <UFormGroup
+                        class="w-full"
+                        label="Country"
+                        name="">
+                        <SelectMenu
+                            name=""
+                            :options="[]"
+                            option-attribute="name"
+                            value-attribute="id"
+                            id-attribute="id"
+                            placeholder="select a province"
+                            class="w-full"/>
+                    </UFormGroup>
+                    <UFormGroup
+                        class="w-full"
+                        label="Province"
+                        name="">
+                        <SelectMenu
+                            name=""
+                            :options="[]"
+                            option-attribute="name"
+                            value-attribute="id"
+                            id-attribute="id"
+                            placeholder="select a province"
+                            class="w-full"/>
+                    </UFormGroup>
+                    <UFormGroup
+                        class="w-full"
+                        label="Type"
+                        name="">
+                        <SelectMenu
+                            name=""
+                            :options="[]"
+                            option-attribute="name"
+                            value-attribute="id"
+                            id-attribute="id"
+                            placeholder="select a type"
+                            class="w-full"/>
+                    </UFormGroup>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full flex items-center flex-col  justify-center p-6 pb-0 mt-[55px]">
         <div 
-            class="w-full border-b-[1px] border-gray-300 flex justify-between items-center pb-2">
+            class="w-[90%] border-b-[1px] border-gray-300 flex justify-between items-center pb-2">
             <h3
                 class="font-semibold text-[1.2rem] uppercase">
                 Our Best Recommend To Visit
@@ -17,9 +98,9 @@
         </div>
         <div
             v-if="isOpenFilter"
-            class="w-full bg-gray-100 flex flex-wrap gap-3 p-3 rounded-md mt-3">
+            class="w-[90%] bg-gray-100 p-3 grid grid-cols-3 gap-3 rounded-md mt-3">
             <UFormGroup
-                class="w-[calc(98%/3)]"
+                class="w-full"
                 label="Country"
                 name="">
                 <SelectMenu
@@ -32,7 +113,7 @@
                     class="w-full"/>
             </UFormGroup>
             <UFormGroup
-                class="w-[calc(98%/3)]"
+                class="w-full"
                 label="Province"
                 name="">
                 <SelectMenu
@@ -45,7 +126,7 @@
                     class="w-full"/>
             </UFormGroup>
             <UFormGroup
-                class="w-[calc(98%/3)]"
+                class="w-full"
                 label="Type"
                 name="">
                 <SelectMenu
@@ -60,9 +141,9 @@
         </div>
     </div>
     <div 
-        class="w-full p-6 border-b-[1px] border-gray-200">
+        class="w-full p-6 flex items-center justify-start flex-col border-b-[1px] border-gray-200">
         <div 
-            class="w-full grid grid-cols-3 gap-3">
+            class="w-[90%] grid grid-cols-3 gap-3">
             <TravelCard
                 :data="data"/>
         </div>
@@ -217,7 +298,6 @@ const items = [
     {
         data.value = result as any;
     }
-    console.log(data.value)
 }
 /**
  * Begin::Fetch data section

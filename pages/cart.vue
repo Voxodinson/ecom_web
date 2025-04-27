@@ -1,9 +1,8 @@
 <template>
-    
     <div
         class="w-full relative flex h-fit flex-col mt-[55px] pb-10 p-3 bg-white">
         <div 
-            class="">
+            class="mt-6">
             <UButton
                 @click.prevent="$router.back()"
                 variant="soft"
