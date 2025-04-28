@@ -8,7 +8,7 @@
                 :to="`/travels/${data.id}`"
                 class="w-full h-full cursor-pointer group">
                 <img 
-                    :src="(data.image as string)" 
+                    src="https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg" 
                     alt="image"
                     class="w-full h-full object-cover group-hover:scale-110 transition">    
             </ULink>

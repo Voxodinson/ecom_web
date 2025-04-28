@@ -76,7 +76,7 @@
                         </span>
                     </div>
                     <ULink
-                        to="https://www.google.com/maps"
+                        to="https://maps.app.goo.gl/jiFDqVsfr2JhsZ7d7"
                         target="__blank"
                         class="text-[.8rem] hover:underline transition ">
                         Show location on google map

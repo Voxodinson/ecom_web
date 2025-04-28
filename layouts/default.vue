@@ -4,7 +4,7 @@
     class="w-full fixed top-0 z-30 transition duration-300"
     :class="{
       '-translate-y-full': !isVisible,
-      'backdrop-blur-md bg-blue-600/70': isScrolled
+      'bg-gradient-to-r from-sky-400 to bg-sky-600': isScrolled
     }"
   >
     <NavigationBar/>

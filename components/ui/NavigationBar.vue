@@ -1,12 +1,12 @@
 <template>
     <div
         class="w-full h-fit flex items-center justify-center">
-        <div class="w-full h-[55px] pr-3 bg-opacity-80 flex items-center justify-between">
-            <div class="w-[150px] h-[150px]">
-                <img 
-                    :src="Logo" 
-                    alt="website logo"
-                    class="w-full object-cover rounded-full">
+        <div class="w-full h-[55px] px-6 bg-opacity-80 flex items-center justify-between">
+            <div class="w-fit">
+                <h1
+                    class="text-white leading-4 text-[1.2rem] font-bold uppercase">
+                    Camtour <br> Recommend
+                </h1>
             </div>
             <div class="hidden lg:flex">
                 <ul class="flex gap-3">
