@@ -371,13 +371,12 @@ const switchBackground = (idx: number) => {
  */
 const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
     const per_page: number = 10;
-    let url: string = `https://fakestoreapi.com/product`;
+    let url: string = `https://fakestoreapi.com/products`;
     if(search)
     {
         url += `&search=${search}`;
     }
     const result: ResponseStatus = await api.get(url) as ResponseStatus;
-    console.log(data.value)
     if(!result.error)
     {
         data.value = result as any;
