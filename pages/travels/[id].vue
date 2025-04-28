@@ -1,6 +1,20 @@
 <template>
+    <div 
+        class=" mt-[100px] ml-3">
+        <UButton
+            @click.prevent="$router.back()"
+            variant="soft"
+            color="white"
+            class=" group text-[1rem] hover:underline cursor-pointer">
+            <UIcon  
+                name="material-symbols-light:arrow-back-ios-new-rounded"
+                class="w-5 h-5  group-hover:-translate-x-2 transition">
+            </UIcon>
+            Back
+        </UButton>
+    </div>
     <div
-        class="my-[100px] px-6 w-full grid grid-cols-2 gap-6 h-fit">
+        class="mb-[100px] mt-3 px-6 w-full grid grid-cols-2 gap-6 h-fit">
         <div 
             class="flex w-full items-start justify-start">
             <div class="w-full h-[75vh] rounded-md overflow-hidden">
@@ -62,7 +76,7 @@
                         </span>
                     </div>
                     <ULink
-                        to="https://www.google.com/maps"
+                        to="https://maps.app.goo.gl/jiFDqVsfr2JhsZ7d7"
                         target="__blank"
                         class="text-[.8rem] hover:underline transition ">
                         Show location on google map

@@ -1,12 +1,15 @@
 <template>
-    <div
-        class="h-fit relative">
-        <div 
-            class=" w-full fixed top-0 z-30 transition"
-            :class="{'-translate-y-full': !isVisible}">
-            <NavigationBar/>
-        </div>
-    </div>
+    <div class="h-fit relative">
+  <div 
+    class="w-full fixed top-0 z-30 transition duration-300"
+    :class="{
+      '-translate-y-full': !isVisible,
+      'bg-gradient-to-r from-sky-400 to bg-sky-600': isScrolled
+    }"
+  >
+    <NavigationBar/>
+  </div>
+</div>
     <div 
         class="w-full relative">
         <NuxtPage/>
@@ -235,11 +238,14 @@ const returnAnswer: Ref<string> = ref<string>('Lorem ipsum dolor sit amet, conse
 /**
  * Begin::Some Logical section
  */
- const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    isVisible.value = currentScrollY < lastScrollY || currentScrollY < 10;
-    lastScrollY = currentScrollY;
-};
+const isScrolled = ref(false)
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY
+  isVisible.value = currentScrollY < lastScrollY || currentScrollY < 10
+  isScrolled.value = currentScrollY > 10
+  lastScrollY = currentScrollY
+}
 
 const toggleNewQuestion = (value: boolean): void => {
     isOpenNewQuestion.value = value as boolean;

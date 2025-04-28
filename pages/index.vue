@@ -16,7 +16,7 @@
                 class="flex items-center justify-center flex-col">
                 <h1
                     class="text-[3rem] font-bold uppercase text-white">
-                    Company Name
+                    Camtour Recommend
                 </h1>
                 <h3
                     class="text-[1.2rem] font-semibold text-white mt-3">
@@ -109,7 +109,7 @@
                         Our Best Products
                     </h3>
                     <div 
-                        class="w-full grid grid-cols-4 gap-3">
+                        class="w-[90%] grid grid-cols-3 gap-3">
                         <ProductCard
                             :data="data"/>
                     </div>
@@ -121,7 +121,7 @@
                         Our Best Recommend To Visit
                     </h3>
                     <div 
-                        class="w-full grid grid-cols-3 gap-3">
+                        class="w-[90%] grid grid-cols-3 gap-3">
                         <TravelCard
                             :data="dataRecommend"/>
                     </div>
@@ -347,7 +347,8 @@ const dataRecommend = [
         name: 'Lorem ipsum dolor sit amet',
         price: 100
     }
-]
+];
+
 /**
  * End::Declare variable section
  */
@@ -370,17 +371,17 @@ const switchBackground = (idx: number) => {
  */
 const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
     const per_page: number = 10;
-    let url: string = `https://fakestoreapi.com/products`;
+    let url: string = `https://fakestoreapi.com/product`;
     if(search)
     {
         url += `&search=${search}`;
     }
     const result: ResponseStatus = await api.get(url) as ResponseStatus;
+    console.log(data.value)
     if(!result.error)
     {
         data.value = result as any;
     }
-    console.log(data.value)
 }
 /**
  * Begin::Fetch data section
