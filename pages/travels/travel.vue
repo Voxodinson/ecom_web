@@ -77,6 +77,18 @@
                             class="w-full"/>
                     </UFormGroup>
                 </div>
+                <div class="w-full flex items-center justify-end">
+                    <UButton 
+                        size="md" 
+                        color="sky" 
+                        variant="solid" 
+                        class="px-3">
+                        <UIcon
+                            name="material-symbols:filter-alt"
+                            class="w-5 h-5 group-hover:scale-110 transition"/>
+                        Apply
+                    </UButton>
+                </div>
             </div>
         </div>
     </div>
