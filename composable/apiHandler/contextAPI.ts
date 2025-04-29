@@ -15,38 +15,43 @@ const loader: DefineComponent = defineComponent({
 });
 
 const loaderInstance: {
-  app?: App<Element>;
-  instance?: ComponentPublicInstance;
+    app?: App<Element>;
+    instance?: ComponentPublicInstance;
 } = {};
 
 const showLoader = (): void => {
-  if (!loaderInstance?.app) {
-    loaderInstance.app = createApp(loader);
-    loaderInstance.instance = loaderInstance?.app?.mount(
-      document?.createElement("div")
-    ) as ComponentPublicInstance;
-    const target: HTMLDivElement = document?.getElementById(
-      "teleports"
-    ) as HTMLDivElement;
-    if (target) {
-      target.innerHTML = "";
-      target.appendChild(loaderInstance?.instance?.$el);
+    if (!loaderInstance?.app) {
+        loaderInstance.app = createApp(loader);
+        loaderInstance.instance = loaderInstance?.app?.mount(
+            document?.createElement("div")
+        ) as ComponentPublicInstance;
+
+        const target: HTMLDivElement = document?.getElementById(
+            "teleports"
+        ) as HTMLDivElement;
+
+        if (target) {
+            target.innerHTML = "";
+            target.appendChild(loaderInstance?.instance?.$el);
+        }
     }
-  }
 };
 
 const closeLoader = (): void => {
-  if (loaderInstance?.app) {
-    const target: HTMLDivElement = document?.getElementById(
-      "teleports"
-    ) as HTMLDivElement;
-    if (target) {
-      target.innerHTML = "";
+    if (loaderInstance?.app) {
+
+        const target: HTMLDivElement = document?.getElementById(
+            "teleports"
+        ) as HTMLDivElement;
+
+        if (target) {
+            target.innerHTML = "";
+        }
+        
+        loaderInstance?.app?.unmount();
+        loaderInstance.app = undefined;
+        loaderInstance.instance = undefined;
     }
-    loaderInstance?.app?.unmount();
-    loaderInstance.app = undefined;
-    loaderInstance.instance = undefined;
-  }
 };
 
 class ContextAPI {

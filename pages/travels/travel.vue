@@ -263,7 +263,7 @@
         <div 
             class="w-[91%] grid grid-cols-3 gap-3">
             <TravelCard
-                :data="data"/>
+                :data="data.data"/>
         </div>
         <div 
             class="w-[90%] flex items-center justify-center mt-3">
@@ -458,7 +458,7 @@ const travelCatrgories: Ref<any> = ref<any>([
  */
  const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
     const per_page: number = 10;
-    let url: string = 'https://fakestoreapi.com/products';
+    let url: string = 'locations';
     if(search)
     {
         url += `&search=${search}`;
@@ -467,6 +467,7 @@ const travelCatrgories: Ref<any> = ref<any>([
     if(!result.error)
     {
         data.value = result as any;
+        console.log(data.value)
     }
 }
 /**
