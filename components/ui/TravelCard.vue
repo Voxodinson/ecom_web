@@ -13,7 +13,7 @@
                     class="w-full h-full object-cover group-hover:scale-110 transition">    
                 <h3
                     class="font-semibold text-white absolute bottom-0 left-1 text-shadow">
-                    Siem Reap
+                    {{ data.province.name }}
                 </h3>
             </ULink>
         </div>
@@ -21,13 +21,50 @@
             class="w-full py-3 h-fit flex flex-col">
             <h3
                 class="text-gray-600 text-[1rem] overflow-hidden text-ellipsis w-full line-clamp-1">
-                {{ data.title }}
+                {{ data.name }}
             </h3>
+            <span
+                class="text-[.7rem] flex gap-1 left-3 items-center text-gray-400">
+                <UIcon
+                    name="mdi:earth"
+                    class="w-3.5 h-3.5 text-gray-300"/>
+                {{ data.published_at }}
+            </span>
             <p 
-                class="text-gray-400 text-[.8rem] overflow-hidden text-ellipsis w-full line-clamp-2">
-                {{ data.description }}
+                class="text-gray-400 text-[.9rem] mt-1 overflow-hidden text-ellipsis w-full line-clamp-2">
+                {{ data.short_description }}
             </p>
-            <div class="w-full mt-6 flex flex-wrap items-center gap-2">
+            <div class="w-full mt-3 flex flex-wrap items-center gap-2">
+                <div class="flex gap-1 items-center">
+                    <UIcon
+                        name="bx:bxs-like"
+                        class="w-5 h-5 text-gray-300 hover:scale-110 transition cursor-pointer"/>
+                    <span
+                        class="text-[.9rem] text-gray-400">
+                        100
+                    </span>
+                </div>
+                <div class="flex gap-1 items-center">
+                    <UIcon
+                        name="bxs:dislike"
+                        class="w-5 h-5 text-gray-300 hover:scale-110 transition cursor-pointer"/>
+                    <span
+                        class="text-[.9rem] text-gray-400">
+                        Dislike
+                    </span>
+                </div>
+                <UButton 
+                    variant="soft"
+                    color="white"
+                    class="flex gap-1 items-center border-sky-200 py-1 border-[1px] rounded-full bg-white group">
+                    <UIcon
+                        name="ic:baseline-share"
+                        class="w-5 h-5 text-sky-400 group-hover:scale-110 transition cursor-pointer"/>
+                    <span
+                        class="text-[.9rem] text-sky-400">
+                        Share
+                    </span>
+                </UButton>
                 <UIcon
                     name="ic:round-favorite"
                     class="w-7 h-7 text-gray-300 hover:scale-110 transition cursor-pointer"/>
@@ -95,119 +132,180 @@
             </div>
             <div 
                 class="h-fit p-3 pb-3">
-                <div 
-                    class="w-full grid grid-cols-2 pb-3 border-b-[1px] border-gray-200">
+                <UTabs 
+                    :items="tabs" 
+                    v-model="selected"
+                    class="w-full"/>
+                <template 
+                    v-if="selected === 0">
                     <div 
-                        class="w-full flex items-center justify-center flex-col">
-                        <h3 class="text-[.8rem] text-gray-400">Rating Overall</h3>
+                        class="w-full grid grid-cols-2 pb-3 border-b-[1px] border-gray-200">
                         <div 
-                            class="w-full flex flex-col items-center justify-center">
-                            <h3
-                                class="text-[2.5rem] font-bold ">
-                                {{ rating }}
-                            </h3>
-                            <p
-                                class="text-gray-400 text-[0.8rem]">
-                                Based on {{ totalRatings }} reviews
-                            </p>
-                        </div>
-                        <div class="flex">
-                            <UIcon
-                                v-for="i in Math.floor(rating)"
-                                :key="i"
-                                name="material-symbols:star-rounded"
-                                class="w-10 h-10 text-yellow-500"/>
-                            <UIcon
-                                v-if="rating % 1 !== 0"
-                                name="material-symbols:star-half-rounded"
-                                class="w-10 h-10 text-yellow-500"/>
-                            <UIcon
-                                v-for="i in 5 - Math.ceil(rating)"
-                                :key="'empty-' + i"
-                                name="material-symbols:star-outline"
-                                class="w-10 h-10 text-yellow-500"/>
-                        </div>
-                    </div>
-                    <div class="w-full flex flex-col">
-                        <div class="p-2 space-y-2">
-                            <h3 class="text-xl font-bold mb-4">Rating Breakdown</h3>
+                            class="w-full flex items-center justify-center flex-col">
+                            <h3 class="text-[.8rem] text-gray-400">Rating Overall</h3>
                             <div 
-                                v-for="(item, index) in ratingBreakdown" 
-                                :key="index">
-                                <div class="flex justify-between items-center">
-                                    <span 
-                                        class="capitalize text-[.8rem] text-gray-400">
-                                        {{ item.label }}
-                                    </span>
-                                    <span
-                                        class="text-[.8rem] text-gray-400">
-                                        {{ item.count }}
-                                    </span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-3">
-                                    <div
-                                        class="h-3 rounded-full"
-                                        :class="item.color"
-                                        :style="{ width: (item.count / totalRatings * 100) + '%' }">
+                                class="w-full flex flex-col items-center justify-center">
+                                <h3
+                                    class="text-[2.5rem] font-bold ">
+                                    {{ rating }}
+                                </h3>
+                                <p
+                                    class="text-gray-400 text-[0.8rem]">
+                                    Based on {{ totalRatings }} reviews
+                                </p>
+                            </div>
+                            <div class="flex">
+                                <UIcon
+                                    v-for="i in Math.floor(rating)"
+                                    :key="i"
+                                    name="material-symbols:star-rounded"
+                                    class="w-10 h-10 text-yellow-500"/>
+                                <UIcon
+                                    v-if="rating % 1 !== 0"
+                                    name="material-symbols:star-half-rounded"
+                                    class="w-10 h-10 text-yellow-500"/>
+                                <UIcon
+                                    v-for="i in 5 - Math.ceil(rating)"
+                                    :key="'empty-' + i"
+                                    name="material-symbols:star-outline"
+                                    class="w-10 h-10 text-yellow-500"/>
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-col">
+                            <div class="p-2 space-y-2">
+                                <h3 class="text-xl font-bold mb-4">Rating Breakdown</h3>
+                                <div 
+                                    v-for="(item, index) in ratingBreakdown" 
+                                    :key="index">
+                                    <div class="flex justify-between items-center">
+                                        <span 
+                                            class="capitalize text-[.8rem] text-gray-400">
+                                            {{ item.label }}
+                                        </span>
+                                        <span
+                                            class="text-[.8rem] text-gray-400">
+                                            {{ item.count }}
+                                        </span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div
+                                            class="h-3 rounded-full"
+                                            :class="item.color"
+                                            :style="{ width: (item.count / totalRatings * 100) + '%' }">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div 
-                    class="w-full">
-                    <div
-                        v-for="(i, idx) in 2" 
-                        class="flex w-full h-fit p-3 gap-3"
-                        :class="idx !== 1 ? 'border-b-[1px] border-gray-200' : ''"
-                        >
-                        <div class="w-[60px] h-[60px] rounded-full overflow-hidden">
-                            <img 
-                                src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" 
-                                alt=""
-                                class="w-full h-full object-cover">
-                        </div>
-                        <div 
-                            class="flex w-[calc(100%-70px)] flex-col">
-                            <div class="flex w-full justify-between">
-                                <h3
-                                    class=" font-semibold capitalize">Vox Odinson</h3>
-                                <div 
-                                    class="flex">
-                                    <UIcon
-                                        v-for="i in Math.floor(rating)"
-                                        :key="i"
-                                        name="material-symbols:star-rounded"
-                                        class="w-5 h-5 text-yellow-500"/>
-                                    <UIcon
-                                        v-if="rating % 1 !== 0"
-                                        name="material-symbols:star-half-rounded"
-                                        class="w-5 h-5 text-yellow-500"/>
-                                    <UIcon
-                                        v-for="i in 5 - Math.ceil(rating)"
-                                        :key="'empty-' + i"
-                                        name="material-symbols:star-outline"
-                                        class="w-5 h-5 text-yellow-500"/>
-                                </div>
+                    <div 
+                        class="w-full">
+                        <div
+                            v-for="(i, idx) in 2" 
+                            class="flex w-full h-fit p-3 gap-3"
+                            :class="idx !== 1 ? 'border-b-[1px] border-gray-200' : ''"
+                            >
+                            <div class="w-[60px] h-[60px] rounded-full overflow-hidden">
+                                <img 
+                                    src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                    alt=""
+                                    class="w-full h-full object-cover">
                             </div>
                             <div 
-                                class="w-full">
-                                <p
-                                    class="text-gray-500 text-[.9rem] overflow-hidden text-ellipsis w-full"
-                                    :class="isExpanded ? '' : 'line-clamp-2'">
-                                    The experience was very pleasant. Communication was clear, and the process was efficient. I would recommend it to others.
-                                    Good quality and friendly service. A few minor issues but nothing that impacted the overall positive experience.
-                                </p>
-                                <span
-                                    class="text-sky-400 inline-block text-[.9rem] cursor-pointer mt-1"
-                                    @click="isExpanded = !isExpanded">
-                                    {{ isExpanded ? 'Show less' : 'Read more' }}
-                                </span>
+                                class="flex w-[calc(100%-70px)] flex-col">
+                                <div class="flex w-full justify-between">
+                                    <h3
+                                        class=" font-semibold capitalize">Vox Odinson</h3>
+                                    <div 
+                                        class="flex">
+                                        <UIcon
+                                            v-for="i in Math.floor(rating)"
+                                            :key="i"
+                                            name="material-symbols:star-rounded"
+                                            class="w-5 h-5 text-yellow-500"/>
+                                        <UIcon
+                                            v-if="rating % 1 !== 0"
+                                            name="material-symbols:star-half-rounded"
+                                            class="w-5 h-5 text-yellow-500"/>
+                                        <UIcon
+                                            v-for="i in 5 - Math.ceil(rating)"
+                                            :key="'empty-' + i"
+                                            name="material-symbols:star-outline"
+                                            class="w-5 h-5 text-yellow-500"/>
+                                    </div>
+                                </div>
+                                <div 
+                                    class="w-full">
+                                    <p
+                                        class="text-gray-500 text-[.9rem] overflow-hidden text-ellipsis w-full"
+                                        :class="isExpanded ? '' : 'line-clamp-2'">
+                                        The experience was very pleasant. Communication was clear, and the process was efficient. I would recommend it to others.
+                                        Good quality and friendly service. A few minor issues but nothing that impacted the overall positive experience.
+                                    </p>
+                                    <span
+                                        class="text-sky-400 inline-block text-[.9rem] cursor-pointer mt-1"
+                                        @click="isExpanded = !isExpanded">
+                                        {{ isExpanded ? 'Show less' : 'Read more' }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </template>
+                <template 
+                    v-if="selected === 1">
+                    <form
+                        name="exam"
+                        method="POST"
+                        enctype="multipart/form-data"
+                        @submit.prevent=""
+                        class="w-full">
+                        <div 
+                            class="flex cursor-pointer py-12 flex-col items-center justify-center">
+                            <h3
+                                class="text-gray-400 text-[.9rem]">
+                                Give an overall rating for this place
+                            </h3>
+                            <div class="flex">
+                                <UIcon
+                                    v-for="i in 5"
+                                    :key="i"
+                                    :name="i <= userRating ? 'material-symbols:star-rounded' : 'material-symbols:star-outline-rounded'"
+                                    class="w-14 h-14 font-thin text-gray-300"
+                                    :class="ratingStatus.color"
+                                    @click="getRating(Number(i))"/>
+                            </div>
+                            <span
+                                class=" capitalize text-[.8rem]"
+                                :class="ratingStatus.color">
+                                {{ ratingStatus.label }}
+                            </span>
+                        </div>
+                        <UFormGroup
+                            class="w-full mt-3"
+                            label="What did you like or dislike about this place?"
+                            name="review">
+                            <UTextarea 
+                                color="white" 
+                                placeholder="Enter something about this place..."
+                                name="review"
+                                role="input"
+                                autoresize/>
+                        </UFormGroup>
+                        <div 
+                            class="w-full flex items-center justify-end mt-3">
+                            <UButton
+                                type="button"
+                                size="sm"
+                                color="black"
+                                label="Send"
+                                icon="mingcute:send-line"
+                                variant="soft" 
+                                :padded="false"
+                                class="bg-sky-500 text-white hover:bg-sky-400 p-1 px-3 transition"/>
+                        </div>
+                    </form>
+                </template>
             </div>
         </div>
     </UModal>
@@ -246,7 +344,7 @@ import {
 */
 const route = useRoute();
 const props = withDefaults(defineProps<{
-    data: Items[],
+    data: any,
 }>(),{
     data: () => []
 });
@@ -273,7 +371,17 @@ const rating: Ref<number> = ref<number>(4.9);
 const isExpanded: Ref<boolean> = ref<boolean>(false);
 const totalRatings = ratingBreakdown.reduce((sum, item) => sum + item.count, 0);
 const isOpenMap: Ref<boolean> = ref<boolean>(false);
-
+const selected: Ref<number> = ref<number>(0);
+const userRating: Ref<number> = ref<number>(0);
+const ratingStatus: Ref<any> = ref<any>({})
+const tabs: Ref<any[]> = computed(() => [
+    {
+        label: 'Reviews and Rating'
+    },
+    {
+        label: "Write a Review and Rating"
+    }
+]);
 /**
  * End: declare variable section
  */
@@ -287,6 +395,30 @@ const openReview = (value: boolean) => {
 const openMap = (value: boolean) => {
     isOpenMap.value = value as boolean;
 }
+
+function getRatingStatus(rating: number) {
+    switch (rating) {
+        case 5:
+            return { label: 'excellent', color: 'text-green-500' }
+        case 4:
+            return { label: 'good', color: 'text-sky-400' }
+        case 3:
+            return { label: 'average', color: 'text-yellow-400' }
+        case 2:
+            return { label: 'below average', color: 'text-orange-400' }
+        case 1:
+        default:
+            return { label: 'poor', color: 'text-red-500' }
+    }
+}
+
+function getRating(value: number) {
+    userRating.value = value as number;
+    if(userRating.value){
+        ratingStatus.value = getRatingStatus(Number(userRating.value));
+    }
+}
+
 /**
  * End: Some logical
  */

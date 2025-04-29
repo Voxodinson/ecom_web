@@ -6,11 +6,15 @@ import type {
     ResponseStatus
 } from "@/models/type";
 
+interface ImportMetaEnv {
+    readonly VITE_BASE_URL: string;
+}
+  
 abstract class StateAPI
 {
     protected context!: ContextAPI;
     protected token: string | null | undefined = null;
-    protected base_url: string = (import.meta.env.VITE_BASE_URL as ImportMetaEnv)+'';
+    protected base_url: string = (import.meta.env.VITE_BASE_URL as ImportMetaEnv)+'/api/';
 
     constructor()
     {
