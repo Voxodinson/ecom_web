@@ -37,7 +37,7 @@
                 </span>
                 <div
                     @click="()=> {
-                        OpenReview(Boolean(true));
+                        openReview(Boolean(true));
                     }" 
                     class="flex gap-3 items-center bg-yellow-100 px-3 py-1 rounded-full w-fit cursor-pointer">
                     <UIcon
@@ -58,8 +58,12 @@
                         $100 - $200
                     </div>
                 </div>
-                <div 
-                    class="flex gap-3 items-center bg-green-200 px-3 py-1 rounded-full w-fit cursor-pointer">
+                <ULink
+                    target="__blank"
+                    to="https://www.google.com/maps/place/Vimean+Pi+Phup+Thmey+Sen+Sok+Wedding+Center/@11.5769344,104.8838144,14z/data=!4m6!3m5!1s0x3109522c5a83ff8d:0x8d7a9b53236beb4f!8m2!3d11.5968836!4d104.888676!16s%2Fg%2F11c5x7hrfw?entry=ttu&g_ep=EgoyMDI1MDQyMy4wIKXMDSoASAFQAw%3D%3D"
+                    active-class="bg-white bg-black text-black py-2 px-4 rounded-full "
+                    class="text-[.9rem]"
+                    inactive-class=" flex gap-3 items-center bg-green-200 px-3 py-1 rounded-full w-fit cursor-pointer">
                     <UIcon
                         name="material-symbols-light:map-search-outline"
                         class="w-5 h-5 text-green-500"/>
@@ -67,7 +71,7 @@
                         class="w-fit text-[.8rem]">
                         Map View
                     </div>
-                </div>
+                </ULink>
             </div>
         </div>
     </div>
@@ -86,7 +90,7 @@
                     name="material-symbols:close-rounded"
                     class="w-7 h-7 text-black font-thin hover:scale-110 transition cursor-pointer"
                     @click="() => {
-                        OpenReview(Boolean(false));
+                        openReview(Boolean(false));
                     }"/>
             </div>
             <div 
@@ -207,6 +211,26 @@
             </div>
         </div>
     </UModal>
+    <UModal 
+        v-model="isOpenMap"
+        :ui="{
+            width: 'w-1/2 sm:max-w-1/2 max-h-[90vh]',
+        }">
+        <div 
+            class="w-full h-full overflow-auto bg-white rounded-md ">
+            <div class="w-full flex p-2 justify-between items-center border-b-[1px] border-gray-200">
+                <h3>
+                    Google Map
+                </h3>
+                <UIcon
+                    name="material-symbols:close-rounded"
+                    class="w-7 h-7 text-black font-thin hover:scale-110 transition cursor-pointer"
+                    @click="() => {
+                        openMap(Boolean(false));
+                    }"/>
+            </div>
+        </div>
+    </UModal>
 </template>
 
 <script setup lang="ts">
@@ -248,7 +272,7 @@ const isOpenReview: Ref<boolean> = ref<boolean>(false);
 const rating: Ref<number> = ref<number>(4.9);
 const isExpanded: Ref<boolean> = ref<boolean>(false);
 const totalRatings = ratingBreakdown.reduce((sum, item) => sum + item.count, 0);
-
+const isOpenMap: Ref<boolean> = ref<boolean>(false);
 
 /**
  * End: declare variable section
@@ -257,8 +281,11 @@ const totalRatings = ratingBreakdown.reduce((sum, item) => sum + item.count, 0);
 /**
  * Begin: Some logical
  */
-const OpenReview = (value: boolean) => {
+const openReview = (value: boolean) => {
     isOpenReview.value = value as boolean;
+}
+const openMap = (value: boolean) => {
+    isOpenMap.value = value as boolean;
 }
 /**
  * End: Some logical
