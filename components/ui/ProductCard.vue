@@ -2,33 +2,31 @@
      <div
         v-for="(data, idx) in props.data"
         :key="idx"
-        class="w-full flex flex-col h-[450px] justify-between rounded-md p-2 shadow-md">
+        class="w-full flex flex-col h-fit justify-between rounded-md">
         <div class="w-full relative">
             <div 
-                class="w-full h-[270px] rounded-t-md overflow-hidden">
-                <img 
-                    :src="(data.image as string)" 
-                    alt="Image product"
-                    class="w-full h-full">
-                <span
-                    class="text-red-500 rounded-md p-1 w-[60px] text-[.9rem] flex items-center justify-center bg-white bg-opacity-60 absolute top-1 right-1">
-                    {{data.price}}$
-                </span>
+                class="w-full h-[270px] rounded-md overflow-hidden">
+                <NuxtLink
+                    :to="`/products/${data.id}`"
+                    class=""> 
+                    <img 
+                        :src="(data.image as string || 'https://media.istockphoto.com/id/1396814518/vector/image-coming-soon-no-photo-no-thumbnail-image-available-vector-illustration.jpg?s=612x612&w=0&k=20&c=hnh2OZgQGhf0b46-J2z7aHbIWwq8HNlSDaNp2wn_iko=')" 
+                        alt="Image product"
+                        class="w-full h-full hover:scale-110 transition">
+                </NuxtLink>
             </div>
-            <h3 class=" font-semibold mt-1 text-ellipsis overflow-hidden line-clamp-2 whitespace-normal truncate">
-                {{ data.title }}
+            <h3
+                class="text-gray-600 text-[1.2rem] mt-1 overflow-hidden text-ellipsis w-full line-clamp-1">
+                {{ data.name }}
             </h3>
             <p
-                class="w-full text-[.8rem] line-clamp-1 text-ellipsis mt-1">
-                {{ data.description }}
+                class="w-full text-[.9rem] text-gray-400 line-clamp-2 overflow-hidden text-ellipsis">
+                {{ data.description || 'Need description'}}
             </p>
-        </div>
-        <div class="w-full">
-            <NuxtLink
-                :to="`/products/${data.id}`"
-                class="shadow-sm w-full p-1 rounded-md text-white bg-green-500 flex items-center justify-center text-center mt-3 border-none hover:bg-green-300">
-                View details
-            </NuxtLink>
+            <span
+                class="text-red-500 text-[1.2rem]">
+                {{data.price}}$
+            </span>
         </div>
     </div>
 </template>
