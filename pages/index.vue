@@ -371,7 +371,7 @@ const switchBackground = (idx: number) => {
  */
 const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
     const per_page: number = 10;
-    let url: string = `https://fakestoreapi.com/products`;
+    let url: string = `products`;
     if(search)
     {
         url += `&search=${search}`;

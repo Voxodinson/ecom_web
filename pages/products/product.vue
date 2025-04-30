@@ -1,4 +1,18 @@
 <template>
+    <div 
+        class="w-full h-[100vh] relative">
+        <div class="h-full">
+            <img 
+                src="https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?auto=compress&cs=tinysrgb&w=1200" 
+                alt="bg image"
+                class="w-full h-full object-cover">
+        </div>
+        <div 
+            class="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div 
+                class="w-full h-full bg-black/30 mix-blend-multiply"></div>
+        </div>
+    </div>
     <div
         class="mt-[55px] w-full p-6 flex flex-col items-center justify-center">
         <div 
