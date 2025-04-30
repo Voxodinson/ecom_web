@@ -64,7 +64,7 @@
                         class="w-full h-full object-cover">
                     <ULink
                         :to="item.to" 
-                        class="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50 hidden group-hover:flex cursor-pointer items-center justify-center">
+                        class="w-full h-full absolute top-0 left-0 bg-black bg-opacity-50 hidden group-hover:flex transition cursor-pointer items-center justify-center">
                         <h3
                             class="text-[1.2rem] font-semibold text-white">
                             {{ item.text }}
@@ -111,8 +111,13 @@
                     <div 
                         class="w-[90%] grid grid-cols-3 gap-3">
                         <ProductCard
-                            :data="data"/>
+                            :data="dataProducts.data"/>
                     </div>
+                    <ULink
+                        to="/products/product" 
+                        class="text-black text-[.8rem] mt-3 hover:px-16 transition px-10 py-1 border-[1px] border-gray-400 rounded-md">
+                        View more...
+                    </ULink>
                 </template>
                 <template 
                     v-if="selected === 1">
@@ -123,11 +128,11 @@
                     <div 
                         class="w-[90%] grid grid-cols-3 gap-3">
                         <TravelCard
-                            :data="dataRecommend"/>
+                            :data="dataTravels.data"/>
                     </div>
                     <ULink
-                        to="" 
-                        class="text-black text-[.8rem] mt-3 px-10 py-1 border-[1px] border-gray-400 rounded-md">
+                        to="/travels/travel" 
+                        class="text-black text-[.8rem] mt-3 hover:px-16 transition px-10 py-1 border-[1px] border-gray-400 rounded-md">
                         View more...
                     </ULink>
                 </template>
@@ -203,11 +208,11 @@
                     Best Sale & Products
                 </h3>
                 <ULink
-                    class="text-black flex items-center font-thin text-[.9rem] hover:underline capitalize">
+                    class="text-black flex items-center group font-thin text-[.9rem] hover:underline capitalize">
                     View All
                     <UIcon
                         name="material-symbols:arrow-right-alt-rounded"
-                        class="w-4 h-4"/>
+                        class="w-4 h-4 group-hover:translate-x-1 transition"/>
                 </ULink>
             </div>
             <div 
@@ -275,7 +280,8 @@ definePageMeta({
 /**
  * Begin::Declare variable section
  */
-const data: Ref<object> = ref<object>({});
+const dataProducts: Ref<any> = ref<any>({});
+const dataTravels: Ref<any> = ref<any>({});
 const selected: Ref<number> = ref<number>(0);
 const switchSrc: Ref<string> = ref<string>('https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg');
 const activeIdx: Ref<number> = ref<number>(0);
@@ -369,9 +375,9 @@ const switchBackground = (idx: number) => {
 /**
  * Begin::Fetch data section
  */
-const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
+ const fetchDataProduct = async (current_page: number = 1, search: string = ''): Promise<void> => {
     const per_page: number = 10;
-    let url: string = `products`;
+    let url: string = 'products';
     if(search)
     {
         url += `&search=${search}`;
@@ -379,7 +385,21 @@ const fetchData = async (current_page: number = 1, search: string = ''): Promise
     const result: ResponseStatus = await api.get(url) as ResponseStatus;
     if(!result.error)
     {
-        data.value = result as any;
+        dataProducts.value = result as any;
+        console.log(dataProducts.value)
+    }
+}
+const fetchDataTravel = async (current_page: number = 1, search: string = ''): Promise<void> => {
+    const per_page: number = 10;
+    let url: string = 'locations';
+    if(search)
+    {
+        url += `&search=${search}`;
+    }
+    const result: ResponseStatus = await api.get(url) as ResponseStatus;
+    if(!result.error)
+    {
+        dataTravels.value = result as any;
     }
 }
 /**
@@ -387,6 +407,8 @@ const fetchData = async (current_page: number = 1, search: string = ''): Promise
  */
 
 onMounted(async (): Promise<void> => {
-    await fetchData();
+    await fetchDataProduct();
+    await fetchDataTravel();
 })
+
 </script>
