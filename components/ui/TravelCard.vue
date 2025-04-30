@@ -138,7 +138,7 @@
     <UModal 
         v-model="isOpenReview"
         :ui="{
-            width: 'w-1/2 sm:max-w-1/2 max-h-[90vh]',
+            width: 'w-[70%] sm:max-w-[70%] max-h-[90vh]',
         }">
         <div 
             class="w-full h-full overflow-auto bg-white rounded-md ">
