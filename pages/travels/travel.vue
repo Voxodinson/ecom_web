@@ -458,7 +458,7 @@ const travelCatrgories: Ref<any> = ref<any>([
  */
  const fetchData = async (current_page: number = 1, search: string = ''): Promise<void> => {
     const per_page: number = 10;
-    let url: string = 'locations';
+    let url: string = 'https://advapi.chandalen.dev/api/locations';
     if(search)
     {
         url += `&search=${search}`;

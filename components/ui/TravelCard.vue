@@ -10,11 +10,25 @@
                 <img 
                     src="https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg" 
                     alt="image"
-                    class="w-full h-full object-cover group-hover:scale-110 transition">    
-                <h3
-                    class="font-semibold text-white absolute bottom-0 left-1 text-shadow">
-                    {{ data.province.name }}
-                </h3>
+                    class="w-full h-full object-cover group-hover:scale-110 transition">
+                <div 
+                    class=" absolute bottom-1 left-1">
+                    <h3
+                        class="font-semibold text-white text-shadow">
+                        {{ data.province.name }}
+                    </h3>
+                    <div
+                        class="flex gap-2 items-center">
+                        <UIcon
+                            name="material-symbols:location-on-outline"
+                            class="w-4 h-4 text-gray-300"/>
+                        <p
+                            class="text-white text-[.8rem] text-shadow">
+                            <!-- {{ data.district.name }}, {{ data.commune.name }}, {{ data.village.name }} -->
+                            Battambang, Prek Preah Sdach, 13 Meakkakra
+                        </p>
+                    </div>
+                </div>
             </ULink>
         </div>
         <div 
@@ -51,6 +65,15 @@
                     <span
                         class="text-[.9rem] text-gray-400">
                         Dislike
+                    </span>
+                </div>
+                <div class="flex gap-1 items-center">
+                    <UIcon
+                        name="weui:eyes-on-filled"
+                        class="w-6 h-6 text-gray-300 hover:scale-110 transition cursor-pointer"/>
+                    <span
+                        class="text-[.9rem] text-gray-400">
+                        10.2k
                     </span>
                 </div>
                 <UButton 
