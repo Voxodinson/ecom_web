@@ -14,7 +14,8 @@ abstract class StateAPI
 {
     protected context!: ContextAPI;
     protected token: string | null | undefined = null;
-    protected base_url: string = (import.meta.env.VITE_BASE_URL as ImportMetaEnv)+'https://advapi.chandalen.dev/api/';
+    // protected base_url: string = (import.meta.env.VITE_BASE_URL as ImportMetaEnv)+'https://advapi.chandalen.dev/api/';
+    protected base_url: string = 'https://advapi.chandalen.dev/api/';
 
     constructor()
     {
