@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="w-full h-[100vh] relative">
+        class="w-full h-[70vh] relative">
         <div class="h-full">
             <img 
                 src="https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg?auto=compress&cs=tinysrgb&w=1200" 
