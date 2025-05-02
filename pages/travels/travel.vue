@@ -95,7 +95,7 @@
     <div 
         class="w-full h-fit mt-6 flex items-center justify-center">
         <div 
-            class="w-[90%] h-full flex items-center justify-between p-3 bg-gradient-to-r from-sky-100 to bg-sky-400 rounded-md">
+            class="w-[90%] h-full flex items-center justify-between p-3 bg-gradient-to-r from-sky-200 to bg-sky-500 rounded-md">
             <h3>
                 Been somewhere amazing? Share it with our community!
             </h3>

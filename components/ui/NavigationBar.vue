@@ -16,8 +16,11 @@
                             :key="idx"
                             :to="item.to"
                             active-class="bg-white bg-black text-black py-2 px-4 rounded-full "
-                            class="text-[.9rem] uppercase "
+                            class="text-[.9rem] uppercase flex items-center gap-1 "
                             inactive-class="text-white hover:text-blue-300 font-normal py-2 px-4 rounded-full hover:bg-white transition">
+                            <UIcon
+                                :name="item.icon"
+                                class="w-5 h-5"/>
                             {{ item.label }}
                         </ULink>
                     </li>
@@ -129,22 +132,22 @@ const linkItems = [
     {
         to: '/',
         label: 'Home',
-        icon: 'i-heroicons-arrow-left-on-rectangle'
+        icon: 'material-symbols:home-rounded'
     },
     {
         to: '/products/product',
         label: 'Shop',
-        icon: 'i-heroicons-arrow-left-on-rectangle'
+        icon: 'material-symbols:shopping-bag'
     },
     {
         to: '/travels/travel',
         label: 'Travel',
-        icon: 'i-heroicons-arrow-left-on-rectangle'
+        icon: 'ic:round-travel-explore'
     },
     {
         to: '/about',
         label: 'About',
-        icon: 'i-heroicons-arrow-left-on-rectangle'
+        icon: 'ix:about'
     },
 ];
 const itemsLinkDropdown = [
@@ -158,7 +161,7 @@ const itemsLinkDropdown = [
     [
         {
             label: 'Shop',
-            icon: 'solar:shop-minimalistic-linear',
+            icon: 'material-symbols:shopping-bag-outline',
             to: '',
         },
         {
