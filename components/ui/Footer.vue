@@ -40,12 +40,12 @@
         <div 
             class="w-full h-full px-6 mt-3">
             <div 
-                class="w-full flex items-center justify-center p-3  bg-gradient-to-r from-sky-200 to bg-sky-500  gap-3 shadow-md rounded-md">
+                class="w-full flex items-center justify-center p-3  bg-gradient-to-r from-green-500 to bg-green-600  gap-3 shadow-md rounded-md">
                 <UIcon
                     name="fluent-emoji-flat:glowing-star"
                     class="w-10 h-10"/>
                 <p  
-                    class="text-black">
+                    class="text-white">
                     New menber 
                     <span
                         class="text-yellow-400 capitalize">
