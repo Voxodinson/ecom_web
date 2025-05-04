@@ -1,14 +1,13 @@
 <template>
     <div class="h-fit relative">
-  <div 
-    class="w-full fixed top-0 z-30 transition duration-300"
-    :class="{
-      '-translate-y-full': !isVisible,
-      'bg-gradient-to-r from-sky-400 to bg-sky-600': isScrolled
-    }"
-  >
-    <NavigationBar/>
-  </div>
+        <div 
+            class="w-full fixed top-0 z-30 transition duration-300"
+            :class="{
+                '-translate-y-full': !isVisible,
+                'bg-gradient-to-r from-sky-400 to-sky-600': isScrolled || $route.path === '/cart'
+            }">
+        <NavigationBar/>
+    </div>
 </div>
     <div 
         class="w-full relative">

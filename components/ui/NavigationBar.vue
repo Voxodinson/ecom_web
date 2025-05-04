@@ -132,12 +132,12 @@ const linkItems = [
     {
         to: '/',
         label: 'Home',
-        icon: 'material-symbols:home-rounded'
+        icon: 'material-symbols:home-outline-rounded'
     },
     {
         to: '/products/product',
         label: 'Shop',
-        icon: 'material-symbols:shopping-bag'
+        icon: 'material-symbols:shopping-bag-outline'
     },
     {
         to: '/travels/travel',
@@ -155,7 +155,7 @@ const itemsLinkDropdown = [
         {
             label: 'Home',
             to: '',
-            icon: 'ant-design:home-outlined'
+            icon: 'material-symbols:home'
         }
     ], 
     [
