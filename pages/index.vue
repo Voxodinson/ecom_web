@@ -109,7 +109,7 @@
                         Our Best Products
                     </h3>
                     <div 
-                        class="w-[90%] grid grid-cols-3 gap-3">
+                        class="w-[90%] grid grid-cols-4 gap-3">
                         <ProductCard
                             :data="dataProducts.data"/>
                     </div>
@@ -126,7 +126,7 @@
                         Our Best Recommend To Visit
                     </h3>
                     <div 
-                        class="w-[90%] grid grid-cols-3 gap-3">
+                        class="w-[90%] grid grid-cols-4 gap-3">
                         <TravelCard
                             :data="dataTravels.data"/>
                     </div>
