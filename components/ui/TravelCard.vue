@@ -30,6 +30,9 @@
                     </div>
                 </div>
             </ULink>
+            <UIcon
+                name="ic:round-favorite"
+                class="w-7 h-7 absolute top-1 right-1 text-gray-300 hover:text-yellow-500 hover:scale-110 transition cursor-pointer"/>
         </div>
         <div 
             class="w-full py-3 h-fit flex flex-col">
@@ -88,13 +91,16 @@
                         Share
                     </span>
                 </UButton>
-                <UIcon
-                    name="ic:round-favorite"
-                    class="w-7 h-7 text-gray-300 hover:scale-110 transition cursor-pointer"/>
-                <span
-                    class="text-gray-400 font-thin mx-2">
-                    |
-                </span>
+                <div 
+                    class="flex gap-3 items-center bg-blue-100 px-3 py-1 rounded-full w-fit">
+                    <UIcon
+                        name="hugeicons:money-send-square"
+                        class="w-5 h-5 text-blue-500"/>
+                    <div 
+                        class="w-fit text-[.8rem]">
+                        $100 - $200
+                    </div>
+                </div>
                 <div
                     @click="()=> {
                         openReview(Boolean(true));
@@ -106,16 +112,6 @@
                     <div 
                         class="w-fit text-[.8rem]">
                         4.9 of 1000 reviews
-                    </div>
-                </div>
-                <div 
-                    class="flex gap-3 items-center bg-blue-100 px-3 py-1 rounded-full w-fit">
-                    <UIcon
-                        name="hugeicons:money-send-square"
-                        class="w-5 h-5 text-blue-500"/>
-                    <div 
-                        class="w-fit text-[.8rem]">
-                        $100 - $200
                     </div>
                 </div>
                 <ULink
