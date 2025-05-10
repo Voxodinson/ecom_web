@@ -1,97 +1,153 @@
 <template>
     <div 
-        class=" mt-[100px] ml-3">
-        <UButton
-            @click.prevent="$router.back()"
-            variant="soft"
-            color="white"
-            class=" group text-[1rem] hover:underline cursor-pointer">
-            <UIcon  
-                name="material-symbols-light:arrow-back-ios-new-rounded"
-                class="w-5 h-5  group-hover:-translate-x-2 transition">
-            </UIcon>
-            Back
-        </UButton>
-    </div>
-    <div
-        class="mb-[100px] mt-3 px-6 w-full grid grid-cols-2 gap-6 h-fit">
+        class="w-full flex mt-[100px] flex-col items-center justify-center">
         <div 
-            class="flex w-full items-start justify-start">
-            <div class="w-full h-[75vh] rounded-md overflow-hidden">
-                <img 
-                    :src="items[activeIndex]" 
-                    class="w-full h-full" 
-                    draggable="false">
-            </div>
-            <div 
-                class="flex w-[80px] items-center h-[75vh] flex-col overflow-auto gap-2">
-                <div class="w-fit h-fit flex flex-col gap-2 ">
-                    <div
-                        v-for="(item, idx) in items" 
-                        :key="idx"
-                        @click="changeSlide(idx)"
-                        class="w-[60px] h-[60px] rounded-md overflow-hidden border-[2px] transition"
-                        :class="activeIndex === idx ? 'border-blue-500' : 'border-blue-100'">
-                        <img 
-                            :src="item" 
-                            class="w-full h-full hover:scale-110 transition">
-                    </div>
-                </div>
-            </div>
+            class="w-[90%] h-fit">
+            <UButton
+                @click.prevent="$router.back()"
+                variant="soft"
+                color="white"
+                class=" group border border-sky-400 text-sky-400 text-[1rem] hover:underline cursor-pointer">
+                <UIcon  
+                    name="material-symbols-light:arrow-back-ios-new-rounded"
+                    class="w-5 h-5  group-hover:-translate-x-2 transition">
+                </UIcon>
+                Back
+            </UButton>
         </div>
         <div 
-            class="w-full h-full ">
+            class="w-[90%] h-fit">
             <div 
-                class="w-full h-fit flex flex-col gap-2 border-b-[1px] border-gray-200">
-                <h3
-                    class="font-semibold capitalize text-[1.2rem]">
-                    {{ data.title }}
-                </h3>
-                <p
-                    v-for="i in 4"
-                    class="text-gray-400">
-                    {{ data.description }}
-                </p>
-                <div class="flex items-center justify-between">
+                class="w-full grid grid-cols-[80%_20%] py-3">
+                <div class="w-full">
+                    <h1
+                        class=" font-semibold text-[1.3rem]">
+                        Angkor Wat Temple
+                    </h1>
+
+                    <span
+                        class="text-[.7rem] flex gap-1 left-3 items-center text-gray-400">
+                        <UIcon
+                            name="mdi:earth"
+                            class="w-3.5 h-3.5 text-gray-300"/>
+                            10-5-2025 12:45:00
+                    </span>
                     <div 
-                        class="flex items-center" 
-                        v-if="rating">
-                        <UIcon
-                            v-for="i in Math.floor(rating)"
-                            :key="'full-' + i"
-                            name="material-symbols:star-rounded"
-                            class="w-6 h-6 text-yellow-500"/>
-                        <UIcon
-                            v-if="rating % 1 !== 0"
-                            name="material-symbols:star-half-rounded"
-                            class="w-6 h-6 text-yellow-500"/>
-                        <UIcon
-                            v-for="i in 5 - Math.ceil(rating)"
-                            :key="'empty-' + i"
-                            name="material-symbols:star-outline-rounded"
-                            class="w-6 h-6 text-gray-400"/>
-                        <span
-                            class="mt-0.5 pl-2">
-                            {{ data.rating.count }} reviews
-                        </span>
+                        class="w-full py-3">
+                        <p
+                            class="text-[.9rem] text-gray-600">
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam officiis nisi corporis quidem a unde vero quis fuga asperiores quisquam!
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam officiis nisi corporis quidem a unde vero quis fuga asperiores quisquam!
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam officiis nisi corporis quidem a unde vero quis fuga asperiores quisquam!
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam officiis nisi corporis quidem a unde vero quis fuga asperiores quisquam!
+                            <span
+                                class="text-sky-400 text-[.9rem]">
+                                See more
+                            </span>
+                        </p>
                     </div>
-                    <ULink
-                        to="https://maps.app.goo.gl/jiFDqVsfr2JhsZ7d7"
-                        target="__blank"
-                        class="text-[.8rem] hover:underline transition ">
-                        Show location on google map
-                    </ULink>
+                </div>
+                <div 
+                    class="w-full flex items-start justify-end gap-3">
+                    <UButton 
+                        variant="soft"
+                        color="white"
+                        class="flex gap-1 items-center border-gray-200 py-1 border-[1px] hover:border-yellow-500 transition rounded-full bg-white group">
+                        <UIcon
+                            name="ic:round-favorite"
+                            class="w-5 h-5 text-gray-200 group-hover:scale-110 group-hover:text-yellow-500 transition cursor-pointer"/>
+                        <span
+                            class="text-[.9rem] text-gray-400 group-hover:text-yellow-500 transition">
+                            Favorite
+                        </span>
+                    </UButton>
+                    <UButton 
+                        variant="soft"
+                        color="white"
+                        class="flex gap-1 items-center border-sky-200 py-1 border-[1px] rounded-full bg-white group">
+                        <UIcon
+                            name="ic:baseline-share"
+                            class="w-5 h-5 text-sky-400 group-hover:scale-110 transition cursor-pointer"/>
+                        <span
+                            class="text-[.9rem] text-sky-400">
+                            Share
+                        </span>
+                    </UButton>
                 </div>
             </div>
             <div 
-                class="w-full mt-6">
-                <UButton 
-                    color="white"
-                    variant="solid"
-                    icon="material-symbols:favorite-outline-rounded"
-                    class="w-full text-black rounded-full flex items-center justify-center py-3 mt-3">
-                    Favorite
-                </UButton>
+                class="w-full h-[60vh] border-b-[1px] border-gray-200 pb-3">
+                <div 
+                    class="w-full h-full grid grid-cols-2 gap-6">
+                    <div 
+                        class="w-full rounded-md overflow-hidden">
+                        <img 
+                            :src="images[0]" 
+                            alt="image"
+                            class="w-full h-full object-cove hover:scale-110 transition cursor-pointer">
+                    </div>
+                    <div 
+                        class="w-full grid grid-cols-2 grid-rows-2 gap-3">
+                        <div
+                            v-for="(image, idx) in images.splice(1, 4)" 
+                            :key="idx"
+                            class="w-full h-full relative rounded-md overflow-hidden group ">
+                            <img 
+                                :src="image" 
+                                alt="image"
+                                class="w-full h-full object-cover group-hover:scale-110 transition cursor-pointer">
+                            <div 
+                                v-if="idx === images.slice(1, 5).length - 1 && images.length > 5"
+                                class="w-full h-full flex items-center justify-center absolute top-0 left-0 inset-0 bg-black/50 backdrop-blur-xs">
+                                <span
+                                    class="text-white text-[2rem] font-thin z-30">
+                                    +{{ images.length }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div 
+                class="w-full h-fit mt-12">
+                <UTabs 
+                    :items="tabs" 
+                    v-model="selected"
+                    class="w-full"/>
+                <template
+                    v-if="selected === 0">
+                    1
+                </template>
+                <template
+                    v-if="selected === 1">
+                    2
+                </template>
+                <template
+                    v-if="selected === 2">
+                    3
+                </template>
+                <template
+                    v-if="selected === 3">
+                    4
+                </template>
+                <template
+                    v-if="selected === 4">
+                    5
+                </template>
+            </div>
+            <div 
+                class="w-full my-6">
+                <h3>
+                    Google Map
+                </h3>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.983081595086!2d104.90949751147967!3d11.553070388599544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951006a3e5d57%3A0x2d07546ae696875b!2sGTech%20Cambodia!5e0!3m2!1sen!2skh!4v1746862363331!5m2!1sen!2skh" 
+                    class="w-full h-[60vh] rounded-md overflow-hidden "
+                    style="border:0;" 
+                    allowfullscreen="false" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
     </div>
@@ -144,15 +200,11 @@ const context: GetDataContext = new GetDataContext(new GetDataNormalForm());
 /**
  * Begin::Declare variable section
  */
-const rating = computed(() => data.value?.rating?.rate || 0);
 const route = useRoute();
 const productId = route.params.id;
 const data: Ref<any> = ref<any>({});
 const dataRecommend: Ref<any> = ref<any>({});
-const activeIndex: Ref<number> = ref<number>(0);
-const activeColor: Ref<number> = ref<number>(0);
-const activeSize: Ref<number> = ref<number>(0);
-const items: any = [
+const images: any = [
   'https://picsum.photos/1920/1080?random=1',
   'https://picsum.photos/1920/1080?random=2',
   'https://picsum.photos/1920/1080?random=3',
@@ -166,6 +218,24 @@ const items: any = [
   'https://picsum.photos/1920/1080?random=5',
   'https://picsum.photos/1920/1080?random=6'
 ];
+const selected: Ref<number> = ref<number>(0);
+const tabs: Ref<any[]> = computed(() => [
+    {
+        label: 'Overview'
+    },
+    {
+        label: "Reviews"
+    },
+    {
+        label: "Location"
+    },
+    {
+        label: "Reviews"
+    },
+    {
+        label: "FAQs"
+    }
+]);
 /**
  * End::Declare variable section
  */
@@ -173,15 +243,7 @@ const items: any = [
 /**
  * Begin::Some logical section
  */
- const changeSlide = (index: number) => {
-    activeIndex.value = index;
-};
-const selectColor = (idx: number): void => {
-    activeColor.value = idx as number;
-}
-const selectSize = (idx: number): void => {
-    activeSize.value = idx as number;
-}
+
 /**
  * End::Some logical section
  */

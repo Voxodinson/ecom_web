@@ -4,11 +4,11 @@
             class="w-full fixed top-0 z-30 transition duration-300"
             :class="{
                 '-translate-y-full': !isVisible,
-                'bg-gradient-to-r from-sky-400 to-sky-600': isScrolled || $route.path === '/cart'
+                'bg-gradient-to-r from-sky-400 to-sky-600': isScrolled || $route.path === '/cart' || isTravelsRoute || isProductsRoute
             }">
-        <NavigationBar/>
+            <NavigationBar/>
+        </div>
     </div>
-</div>
     <div 
         class="w-full relative">
         <NuxtPage/>
@@ -249,6 +249,13 @@ const handleScroll = () => {
 const toggleNewQuestion = (value: boolean): void => {
     isOpenNewQuestion.value = value as boolean;
 }
+
+const isTravelsRoute = computed(() => {
+    return /^\/travels\/\d+$/.test(route.path);
+});
+const isProductsRoute = computed(() => {
+    return /^\/products\/\d+$/.test(route.path);
+})
 /**
  * End::Some Logical section
  */
