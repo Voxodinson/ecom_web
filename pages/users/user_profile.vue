@@ -1,6 +1,17 @@
 <template>
+    <UButton
+        @click.prevent="$router.back()"
+        variant="soft"
+        color="white"
+        class=" absolute top-6 left-6 group text-[1rem] hover:underline cursor-pointer">
+        <UIcon  
+            name="material-symbols-light:arrow-back-ios-new-rounded"
+            class="w-5 h-5  group-hover:-translate-x-2 transition">
+        </UIcon>
+        Back
+    </UButton>
     <div
-        class="w-full flex items-start mt-[50px] justify-center">
+        class="w-full flex items-start justify-center">
         <div 
             class="w-[60%] h-[200vh] bg-gray-100">
             <div 
@@ -63,7 +74,7 @@
                     v-if="selected === 0">
                     <div 
                         class="w-full px-3">
-                        
+
                     </div>
                 </template>
                 <template
@@ -88,6 +99,7 @@ import {
     UserImage 
 } from '~/assets/images';
 definePageMeta({
+    layout: 'login',
     colorMode: 'light'
 });
 
