@@ -385,18 +385,6 @@
             </div>
         </div>
     </div>
-    <div 
-        class="w-full px-6 border-t-[1px] border-gray-200 py-3">
-        <h3
-            class="text-[1.2rem] font-semibold py-2">
-            You Might Also Like
-        </h3>
-        <div 
-            class="w-full grid grid-cols-4 gap-3">
-            <TravelCard
-                :data="dataRecommend"/>
-        </div>
-    </div>
     <UModal 
         v-model="isOpenSlideImage_modal"
         :ui="{
@@ -535,9 +523,6 @@ import type {
     ResponseStatus
 } from '~/models/type';
 import { 
-    TravelCard
-} from "~/components/ui";
-import { 
     useRoute 
 } from 'nuxt/app';
 import { 
@@ -600,20 +585,6 @@ const tabs: Ref<any[]> = computed(() => [
         label: "FAQs"
     }
 ]);
-const images: any = [
-  'https://picsum.photos/1920/1080?random=1',
-  'https://picsum.photos/1920/1080?random=2',
-  'https://picsum.photos/1920/1080?random=3',
-  'https://picsum.photos/1920/1080?random=4',
-  'https://picsum.photos/1920/1080?random=5',
-  'https://picsum.photos/1920/1080?random=6',
-  'https://picsum.photos/1920/1080?random=7',
-  'https://picsum.photos/1920/1080?random=8',
-  'https://picsum.photos/1920/1080?random=9',
-  'https://picsum.photos/1920/1080?random=10',
-  'https://picsum.photos/1920/1080?random=11',
-  'https://picsum.photos/1920/1080?random=12'
-];
 const nearbyPlaces: any[] = [
   { icon: 'material-symbols:home-work-outline-rounded', name: 'Hotel' },
   { icon: 'material-symbols:restaurant', name: 'Restaurant' },

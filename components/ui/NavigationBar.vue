@@ -154,7 +154,7 @@ const itemsLinkDropdown = [
     [
         {
             label: 'Home',
-            to: '',
+            to: '/',
             icon: 'material-symbols:home'
         }
     ], 
@@ -162,19 +162,19 @@ const itemsLinkDropdown = [
         {
             label: 'Shop',
             icon: 'material-symbols:shopping-bag-outline',
-            to: '',
+            to: '/products/product',
         },
         {
-            label: 'Categories',
-            icon: 'line-md:chevron-left-circle-twotone',
-            to: '',
+            label: 'Travel',
+            icon: 'ic:round-travel-explore',
+            to: '/travels/travel',
         }
     ], 
     [
         {
             label: 'About',
             icon: 'ix:about',
-            to: '',
+            to: '/about',
         }
     ]
 ];
@@ -189,7 +189,8 @@ const userItems = [
     [
         {
             label: 'User Profile',
-            icon: 'i-heroicons-cog-8-tooth'
+            icon: 'material-symbols:account-circle-full',
+            to: '/users/user_profile'
         },
         {
             label: 'Favorites',
@@ -197,6 +198,13 @@ const userItems = [
             to: '/login'
         }
     ], 
+    [
+        {
+            label: 'Favorites',
+            icon: 'material-symbols:settings-outline-rounded',
+            to: '/login'
+        }
+    ],
     [
         {
             label: 'Sign In',
