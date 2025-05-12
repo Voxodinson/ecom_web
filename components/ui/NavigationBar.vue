@@ -200,9 +200,9 @@ const userItems = [
     ], 
     [
         {
-            label: 'Favorites',
+            label: 'Setting',
             icon: 'material-symbols:settings-outline-rounded',
-            to: '/login'
+            to: '/settings/setting'
         }
     ],
     [
