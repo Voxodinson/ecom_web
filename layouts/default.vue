@@ -4,7 +4,7 @@
             class="w-full fixed top-0 z-30 transition duration-300"
             :class="{
                 '-translate-y-full': !isVisible,
-                'bg-gradient-to-r from-sky-400 to-sky-600': isScrolled || $route.path === '/cart' || isTravelsRoute || isProductsRoute
+                'bg-gradient-to-r from-sky-400 to-sky-600': hasGradientBg
             }">
             <NavigationBar/>
         </div>
@@ -178,8 +178,8 @@
         </div>
     </div>
     <div 
-        v-if="route.path !== '/cart'"
-        class="w-full h-fit">
+        class="w-full h-fit"
+        :class="$route.path !== '/users/user_profile' && '/users/setting' ? '' : 'hidden'">
         <Footer/>
     </div>
 </template>
@@ -255,7 +255,14 @@ const isTravelsRoute = computed(() => {
 });
 const isProductsRoute = computed(() => {
     return /^\/products\/\d+$/.test(route.path);
-})
+});
+
+const hasGradientBg = computed(() =>
+  isScrolled.value ||
+  ['/cart', '/users/user_profile'].includes(route.path) ||
+  isTravelsRoute.value ||
+  isProductsRoute.value
+)
 /**
  * End::Some Logical section
  */
