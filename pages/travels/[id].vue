@@ -79,29 +79,37 @@
                 class="w-full h-[60vh] border-b-[1px] border-gray-200 pb-3">
                 <div 
                     class="w-full h-full grid grid-cols-2 gap-3">
-                    <div 
+                    <div
+                        @click="openSlideImageModal(Boolean(true))"
                         class="w-full rounded-md overflow-hidden">
                         <img 
-                            :src="images[0]" 
+                            :src="userCommand[0].image" 
                             alt="image"
                             class="w-full h-full object-cove hover:scale-110 transition cursor-pointer">
                     </div>
                     <div 
-                        class="w-full grid grid-cols-2 grid-rows-2 gap-3">
+                        class="w-full h-[59vh] grid grid-cols-2 grid-rows-2 gap-3">
                         <div
-                            v-for="(image, idx) in images.splice(1, 4)" 
+                            v-for="(item, idx) in userCommand.slice(1, 5)"
                             :key="idx"
+                            @click="() => {
+                                slideshow_CurrentIndex = idx + 1 as number;
+                                openSlideImageModal(Boolean(true));
+                            }"
                             class="w-full h-full relative rounded-md overflow-hidden group ">
                             <img 
-                                :src="image" 
+                                :src="item.image" 
                                 alt="image"
                                 class="w-full h-full object-cover group-hover:scale-110 transition cursor-pointer">
                             <div 
-                                v-if="idx === images.slice(1, 5).length - 1 && images.length > 5"
-                                class="w-full h-full flex items-center justify-center absolute top-0 left-0 inset-0 bg-black/50 backdrop-blur-xs">
+                                v-if="idx === 3"
+                                @click="() => {
+                                    openSlideImageModal(Boolean(true));
+                                }"
+                                class="w-full h-full z-50 flex cursor-pointer items-center justify-center absolute top-0 left-0 inset-0 bg-black/50 backdrop-blur-xs">
                                 <span
                                     class="text-white text-[2rem] font-thin z-30">
-                                    +{{ images.length }}
+                                    +{{ userCommand.length - 4}}
                                 </span>
                             </div>
                         </div>
@@ -300,7 +308,7 @@
                             method="POST"
                             enctype="multipart/form-data"
                             @submit.prevent=""
-                            class="w-full p-3 sticky top-3 border-gray-200 border-[1px] h-fit rounded-md ">
+                            class="w-full p-3 sticky top-3 border-gray-200 border-[1px] shadow-sm h-fit rounded-md ">
                             <div 
                                 class="flex cursor-pointer py-12 flex-col items-center justify-center">
                                 <h3
@@ -389,6 +397,129 @@
                 :data="dataRecommend"/>
         </div>
     </div>
+    <UModal 
+        v-model="isOpenSlideImage_modal"
+        :ui="{
+            width: 'w-[96%] sm:max-w-1/2 h-[90vh]',
+        }">
+        <div 
+            class="w-full h-full overflow-auto bg-white rounded-md ">
+            <div class="w-full h-[50px] flex p-2 justify-between items-center border-b-[1px] border-gray-200">
+                <h3
+                    class=" capitalize font-semibold">
+                    all reviews & images
+                </h3>
+                <UIcon
+                    name="material-symbols:close-rounded"
+                    class="w-7 h-7 text-black font-thin hover:scale-110 transition cursor-pointer"
+                    @click="() => {
+                        openSlideImageModal(Boolean(false));
+                    }"/>
+            </div>
+            <div 
+                class="w-full h-[calc(100%-50px)] grid grid-cols-[30%_70%] p-6">
+                <div 
+                    class="mt-4 px-4 w-full h-full overflow-auto" 
+                    v-if="slideshow_currentItem">
+                    <div 
+                        class="w-full flex gap-3 border-b-[1px] border-gray-200 pb-6">
+                        <div 
+                            class="w-[50px] h-[50px] rounded-full overflow-hidden">
+                            <img 
+                                :src="slideshow_currentItem.user.profile || UserImage" 
+                                alt="user profile"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div 
+                            class="w-[calc(100%-50px)]">
+                            <div 
+                                class="flex justify-between w-full items-center">
+                                <h3>
+                                    {{ slideshow_currentItem.user.name }}
+                                </h3>
+                                <div 
+                                    class="flex">
+                                    <UIcon
+                                        v-for="i in Math.floor(slideshow_currentItem.rating)"
+                                        :key="i"
+                                        name="material-symbols:star-rounded"
+                                        class="w-5 h-5 text-yellow-500"/>
+                                    <UIcon
+                                        v-if="slideshow_currentItem.rating % 1 !== 0"
+                                        name="material-symbols:star-half-rounded"
+                                        class="w-5 h-5 text-yellow-500"/>
+                                    <UIcon
+                                        v-for="i in 5 - Math.ceil(slideshow_currentItem.rating)"
+                                        :key="'empty-' + i"
+                                        name="material-symbols:star-outline"
+                                        class="w-5 h-5 text-yellow-500"/>
+                                </div>
+                            </div>
+                            <span
+                                class="text-[.7rem] flex gap-1 left-3 items-center text-gray-400">
+                                <UIcon
+                                    name="mdi:earth"
+                                    class="w-3.5 h-3.5 text-gray-300"/>
+                                    10-5-2025 12:45:00
+                            </span>
+                        </div>
+                    </div>
+                    <p 
+                        class="text-gray-700 mt-2 text-wrap">
+                        {{ slideshow_currentItem.desc }}
+                    </p>
+                </div>
+                <div 
+                    class=" bg-black w-full h-full relative rounded-md overflow-hidden">
+                    <div 
+                        class="flex h-full transition-transform duration-500 ease-in-out" 
+                        :style="{ transform: `translateX(-${slideshow_CurrentIndex * 100}%)` }">
+                        <div
+                            v-for="(item, index) in userCommand"
+                            :key="index"
+                            class="flex-shrink-0 w-full h-full">
+                            <img
+                                :src="item.image"
+                                class="w-full h-full object-scale-down rounded-lg"
+                                alt="feedback image"/>
+                        </div>
+                    </div>
+                    <div 
+                        class="w-full absolute bottom-0 p-2 z-30 overflow-x-auto bg-white bg-opacity-50">
+                        <div 
+                            class="w-fit flex gap-2">
+                            <div 
+                                v-for="(item, idx) in userCommand"
+                                class="w-[50px] h-[50px] rounded-md overflow-hidden"
+                                :class="idx === slideshow_CurrentIndex ? ' border-[3px] border-sky-400' : ' border-white'"
+                                @click="() => {
+                                    slideshow_CurrentIndex = idx as number;
+                                }">
+                                <img 
+                                    :src="item.image" 
+                                    alt="feedback image"
+                                    class="w-full h-full object-cover hover:scale-110 transition cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        @click="prevSlide"
+                        class="absolute left-4 top-1/2 w-[40px] h-[40px] flex items-center justify-center rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition focus:outline-none">
+                        <UIcon
+                            name="material-symbols:chevron-left-rounded"
+                            class="w-12 h-12 mr-1"/>
+                    </button>
+                    <button
+                        @click="nextSlide"
+                        class="absolute right-4 top-1/2 w-[40px] h-[40px] flex items-center justify-center rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition focus:outline-none">
+                        <UIcon
+                            name="material-symbols:chevron-right-rounded"
+                            class="w-12 h-12 ml-1"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </UModal>
 </template>
 
 <script lang="ts" setup>
@@ -409,7 +540,9 @@ import {
 import { 
     useRoute 
 } from 'nuxt/app';
-
+import { 
+    UserImage 
+} from "~/assets/images";
 definePageMeta({
     colorMode: 'light'
 });
@@ -442,6 +575,8 @@ const userRating: Ref<number> = ref<number>(0);
 const ratingStatus: Ref<any> = ref<any>({})
 const totalRatings = ratingBreakdown.reduce((sum, item) => sum + item.count, 0);
 const isExpanded: Ref<boolean> = ref<boolean>(false);
+const isOpenSlideImage_modal: Ref<boolean> = ref<boolean>(false);
+const slideshow_CurrentIndex: Ref<number> = ref<number>(0);
 const links = [
     {
         label: 'Travel',
@@ -472,12 +607,12 @@ const images: any = [
   'https://picsum.photos/1920/1080?random=4',
   'https://picsum.photos/1920/1080?random=5',
   'https://picsum.photos/1920/1080?random=6',
-  'https://picsum.photos/1920/1080?random=1',
-  'https://picsum.photos/1920/1080?random=2',
-  'https://picsum.photos/1920/1080?random=3',
-  'https://picsum.photos/1920/1080?random=4',
-  'https://picsum.photos/1920/1080?random=5',
-  'https://picsum.photos/1920/1080?random=6'
+  'https://picsum.photos/1920/1080?random=7',
+  'https://picsum.photos/1920/1080?random=8',
+  'https://picsum.photos/1920/1080?random=9',
+  'https://picsum.photos/1920/1080?random=10',
+  'https://picsum.photos/1920/1080?random=11',
+  'https://picsum.photos/1920/1080?random=12'
 ];
 const nearbyPlaces: any[] = [
   { icon: 'material-symbols:home-work-outline-rounded', name: 'Hotel' },
@@ -501,6 +636,41 @@ const nearbyPlaces: any[] = [
   { icon: 'material-symbols:school', name: 'School' },
   { icon: 'material-symbols:local-laundry-service', name: 'Laundry' },
 ];
+
+const userCommand: any = [
+    {
+        user: {
+            name: 'Vox Odinson',
+            profile: 'https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D'
+        },
+        desc: 'Location of the hotel & views from all windows including lobby, room, restaurant',
+        image: 'https://i.pinimg.com/736x/08/ac/0b/08ac0bbfddbf5385e17c7420df7bf942.jpg',
+        rating: 4,
+        date: '10-05-2023 12:30:00'
+    },
+    {
+        user: {
+            name: 'Vox Odinson',
+            profile: ''
+        },
+        name: 'Vox Odinson 2',
+        desc: 'Location of the hotel & views from all windows including lobby, room, restaurant& views from all windows including lobby, room, restaurant',
+        image: 'https://i.pinimg.com/736x/01/15/c7/0115c7346b28bbb3a9eefe1447dae0d8.jpg',
+        rating: 4,
+        date: '10-05-2023 12:30:00'
+    },
+    {
+        user: {
+            name: 'Vox Odinson',
+            profile: 'https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D'
+        },
+        name: 'Vox Odinson 3',
+        desc: 'Location of the hotel & views from all windows including lobby, room, restaurant& views from all windows including lobby, room, restaurant',
+        image: 'https://images.squarespace-cdn.com/content/v1/5ee52f7d9edc8a7ee635591a/8df50655-6b68-460e-ad6c-5230001b9d5a/240404+-+063944+-+001.jpg',
+        rating: 2,
+        date: '10-05-2023 12:30:00'
+    }
+]
 /**
  * End::Declare variable section
  */
@@ -528,6 +698,29 @@ function getRating(value: number) {
     userRating.value = value as number;
     if(userRating.value){
         ratingStatus.value = getRatingStatus(Number(userRating.value));
+    }
+}
+
+const openSlideImageModal = (value: boolean) => {
+    if(value === false){
+        slideshow_CurrentIndex.value = 0;
+    }
+    isOpenSlideImage_modal.value = value as boolean;
+}
+
+const slideshow_currentItem = computed(() => {
+    return userCommand[slideshow_CurrentIndex.value] || null
+})
+
+function prevSlide() {
+    if (slideshow_CurrentIndex.value > 0) {
+        slideshow_CurrentIndex.value--;
+    }
+}
+
+function nextSlide() {
+    if (slideshow_CurrentIndex.value < userCommand.length - 1) {
+        slideshow_CurrentIndex.value++;
     }
 }
 /**
@@ -580,8 +773,8 @@ const fetchRecommend = async (current_page: number = 1, search: string = ''): Pr
  * Begin::Fetch data section
  */
 
-onMounted(async (): Promise<void> => {
-    await fetchData();
-    await fetchRecommend();
-})
+// onMounted(async (): Promise<void> => {
+//     await fetchData();
+//     await fetchRecommend();
+// })
 </script>
