@@ -9,10 +9,7 @@ reset password
 </template>
 
 <script setup>
-definePageMeta({
-    layout: 'login',
-    colorMode: 'light'
-});
+
 </script>
 
 <style lang="scss" scoped>
