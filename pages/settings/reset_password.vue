@@ -9,7 +9,10 @@ reset password
 </template>
 
 <script setup>
-
+definePageMeta({
+    layout: 'setting',
+    colorMode: 'light'
+});
 </script>
 
 <style lang="scss" scoped>

@@ -202,7 +202,7 @@ const userItems = [
         {
             label: 'Setting',
             icon: 'material-symbols:settings-outline-rounded',
-            to: '/settings/setting'
+            to: '/settings/account_information'
         }
     ],
     [
