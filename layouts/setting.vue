@@ -100,11 +100,6 @@
 </template>
 <script setup lang="ts">
 
-definePageMeta({
-    layout: 'setting',
-    colorMode: 'light'
-});
-
 
 const linkItemsAccountInfo = [
     {

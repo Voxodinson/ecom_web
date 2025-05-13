@@ -25,8 +25,7 @@
             class="w-full p-3">
             <UProgress
                 :value="progress_bar"
-                :max="['Send OTP', 'OTP Confirm', 'New Password', reset_massage]"
-            />
+                :max="['Send OTP', 'OTP Confirm', 'New Password', reset_massage]"/>
         </div>
         <div 
             class="w-full flex items-center justify-center mt-12 rounded-md p-3">
@@ -56,7 +55,6 @@
                         name="username">
                         <UInput
                             type="text"
-                            color="white"
                             variant="outline"
                             size="md"
                             name="username"
@@ -85,7 +83,7 @@
                     @submit.prevent="">
                     <div class="flex items-center flex-col justify-center">
                         <UIcon
-                            name="material-symbols:fingerprint-outline"
+                            name="material-symbols:mark-chat-read-outline-rounded"
                             class="w-12 h-12"/>
                         <h3
                             class="text-[1.2rem] font-medium mt-3">
@@ -100,14 +98,52 @@
                             </span>
                         </p>
                     </div>
-                    <!-- <UPinInput v-model="otpValue" /> -->
+                    <div class="w-full h-fit flex items-center justify-center gap-2">
+                        <p
+                            class="block font-thin text-[.8rem] text-gray-400">
+                            {{ countdownStart ? `The new code has been sent.` : "Didn't get a OTP code?" }}
+                        </p>
+                        <UButton
+                            type="submit"
+                            color="white"
+                            variant="solid"
+                            size="sm"
+                            @click="submitOtp"
+                            :disabled="countdownStart"
+                            class="flex items-center justify-center px-4 rounded-full text-[.8rem]"
+                            :label="countdownStart ? 'Sent' : 'Resend Code'"
+                            square/>
+                    </div>
+                    <div 
+                        class="w-full h-[40px] flex items-center justify-center">
+                        <span
+                            v-if="countdownStart"
+                            class="text-[1.2rem] font-thin">
+                            {{ countdownExpiredOTP }}
+                        </span>
+                    </div>
+                    <UContainer class="flex justify-center">
+                        <div class="flex gap-3">
+                            <UInput
+                                v-for="(digit, index) in otp"
+                                :key="index"
+                                v-model="otp[index]"
+                                @input="onInput($event, index)"
+                                @keydown="onKeydown($event, index)"
+                                ref="otpRefs"
+                                type="text"
+                                maxlength="1"
+                                input-class="text-center text-2xl w-12 h-12"/>
+                        </div>
+                    </UContainer>
                     <UButton
                         type="submit"
                         color="black"
                         variant="solid"
                         size="md"
-                        class="flex items-center justify-center text-md rounded-full mt-6"
-                        label="Change New Password"
+                        @click=""
+                        class="flex items-center justify-center text-md rounded-full mt-12"
+                        label="Check OTP Code"
                         square/>
                 </form>
             </template>
@@ -132,7 +168,6 @@
                         name="password">
                         <UInput
                             :type="show.show_old ? 'text' : 'password'"
-                            color="white"
                             variant="outline"
                             size="md"
                             name="password"
@@ -161,7 +196,6 @@
                         name="password">
                         <UInput
                             :type="show.show_new ? 'text' : 'password'"
-                            color="white"
                             variant="outline"
                             size="md"
                             name="password"
@@ -190,7 +224,6 @@
                         name="">
                         <UInput
                             :type="show.show_confirm ? 'text' : 'password'"
-                            color="white"
                             variant="outline"
                             size="md"
                             name=""
@@ -228,17 +261,28 @@
 </template>
 
 <script setup lang="ts">
+import { 
+    ref, 
+    reactive, 
+    nextTick 
+} from 'vue'
+
 definePageMeta({
     layout: 'setting',
     colorMode: 'light'
 });
-
 /**
  * Begin::Declare variable section
  */
-const otpValue: Ref<string[]> = ref<string[]>(['2', '3', '2', '3', '2'])
+
+//OTP
+const otpLength: any = 6;
+const otp: any = reactive(Array(otpLength).fill(''))
+const otpRefs: Ref<any[]> = ref<any[]>([])
 const progress_bar: Ref<number> = ref<number>(1);
-const reset_massage: Ref<string> = ref<string>('Successfully reset!')
+const reset_massage: Ref<string> = ref<string>('Successfully reset!');
+let countdownExpiredOTP: Ref<number> = ref<number>(60);
+const countdownStart: Ref<boolean> = ref<boolean>(false); 
 const userPassword: any = {
     old_password: '100999238239',
     new_password: '',
@@ -251,5 +295,58 @@ const show: Ref<any> = ref<any>({
 });
 /**
  * End::Declare variable section
+ */
+
+/**
+ * Begin:: OTP section
+ */
+
+const startCountdown = () => {
+    //disabled function when interval on working
+    if (countdownStart.value) return
+
+    countdownStart.value = Boolean(true);
+    countdownExpiredOTP.value = Number(60);
+
+    const interval = setInterval(() => {
+        if (countdownExpiredOTP.value > 0) {
+            countdownExpiredOTP.value--
+        } else {
+            countdownStart.value = Boolean(false);
+            clearInterval(interval);
+        }
+    }, 1000);
+}
+
+function onInput(event: any, index: number) {
+    const value = event.target.value
+    if (!/^[0-9]?$/.test(value)) {
+        otp[index] = ''
+        return
+    }
+
+    if (value.length === 1 && index < otp.length - 1) {
+        nextTick(() => otpRefs.value[index + 1]?.input?.focus());
+    }
+}
+
+function onKeydown(event: any, index: number) {
+    const isBackspace = event.key === 'Backspace'
+
+    if (isBackspace && otp[index] === '' && index > 0) {
+        nextTick(() => otpRefs.value[index - 1]?.input?.focus());
+    }
+}
+
+const getOtpValue = () => {
+    return otp.join('')
+}
+
+function submitOtp() {
+    getOtpValue();
+    startCountdown();
+}
+/**
+ * End: OPT section
  */
 </script>
