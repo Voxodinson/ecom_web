@@ -113,9 +113,9 @@ const linkItemsAccountInfo = [
         icon: 'material-symbols:article-person-outline-rounded'
     },
     {
-        to: '/settings/reset_password',
+        to: '/settings/change_password',
         label: 'Change Your Password',
-        icon: 'material-symbols:lock-reset-sharp'
+        icon: 'mage:exchange-a'
     }
 ];
 const linkItemsHelpCenter = [

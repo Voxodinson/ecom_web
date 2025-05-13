@@ -8,7 +8,7 @@
                 Account Security
             </h3>
             <ULink
-                to="/settings/reset_password"
+                to="/settings/change_password"
                 class="border-[1px] border-blue-400 rounded-md p-1 px-3 flex items-center gap-2 text-blue-400 text-[.9rem]">
                 <UIcon
                     name="material-symbols:edit-square-outline"
