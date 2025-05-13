@@ -154,7 +154,10 @@ import {
 import {
     useAuthStore
 } from '@/store/auth';
-import { UButton, ULink } from "#components";
+import { 
+    UButton, 
+    ULink 
+} from "#components";
   
 definePageMeta({
     layout: 'login',

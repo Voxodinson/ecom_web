@@ -10,7 +10,7 @@
 
 <script setup>
 definePageMeta({
-    layout: 'login',
+    layout: 'setting',
     colorMode: 'light'
 });
 </script>
