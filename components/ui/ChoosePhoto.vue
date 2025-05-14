@@ -4,130 +4,156 @@
         type="file"
         :name="name"
         :accept="accept"
-        multiple
-        class="data-input absolute h-[2px] w-[2px] -z-10 outline-none overflow-hidden m-0 p-0 bg-transparent border-0"
-        @change="onFileChange"
-    />
+        :id="useId()"
+        class="data-input absolute h-0.5 w-0.5 -z-10 outline-none overflow-hidden m-0 p-0 bg-transparent border-none"
+        :tabindex="0"
+        :data-image="String(image)"
+        role="input"
+        required/>
     <div
         role="image"
-        @drop.prevent="handleDrop"
-        @paste.prevent="handlePaste"
-        class="relative flex gap-3 w-full h-full flex-wrap focus:outline-none"
-    >
-        <!-- Upload Button -->
+        @drop.prevent="(event: Event): void => {
+            handleDrop(event);
+        }"
+        @paste.prevent="(event: Event): void => {
+            handlePaste(event as ClipboardEvent);
+        }"
+        @mouseenter="(event: Event): void => {
+            const target: HTMLDivElement = (event?.target as HTMLElement)?.closest('[role=\'image\']') as HTMLDivElement;
+            if(target){
+                target.contentEditable = 'true';
+            }
+        }"
+        @mouseleave="(event: Event): void => {
+            const target: HTMLDivElement = (event?.target as HTMLElement)?.closest('[role=\'image\']') as HTMLDivElement;
+            if(target){
+                target.contentEditable = 'false';
+            }
+        }"
+        @input.prevent
+        @dragover.prevent
+        @keydown.prevent
+        class="relative w-full h-full focus:outline-none">
         <div
-            @click="triggerClick"
-            class="flex w-[200px] h-[200px] items-center justify-center rounded-md border-[1px] border-gray-200 border-dashed relative cursor-pointer">
-            <UIcon name="material-symbols:add-to-photos-outline-rounded" />
+            v-if="Boolean(image === null)"
+            @click="(): void => {
+                triggerClick();
+            }"
+            class="flex items-center justify-center w-full h-full relative cursor-pointer">
+            <UIcon
+                name="material-symbols:add-to-photos-outline-rounded"
+                class="w-6 h-7 text-blue-400 shadow-md"/>
         </div>
-
-        <!-- Display Selected Images -->
-        <div v-for="(img, index) in images" :key="index" class="w-[200px] h-[200px] relative">
-            <img :src="img" alt="photo" class="data-set flex w-full h-full object-cover border-gray-300" />
+        <div
+            v-else
+            class="relative w-full h-full">
+            <img
+                :src="String(image)"
+                alt="photo"
+                loading="lazy"
+                class="data-set w-full h-full object-cover"/>
             <div
-                @click="resetFile(index)"
-                class="bg-gray-200 p-1 h-[20px] w-[20px] flex items-center justify-center absolute top-0 right-0 cursor-pointer">
-                <UIcon name="material-symbols-light:close" />
+                @click="(): void => {
+                    resetFile();
+                }"
+                class="absolute top-0 right-0 p-1 cursor-pointer">
+                <UIcon
+                    name="material-symbols:cancel-outline"
+                    class="w-6 h-6"/>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { VNodeRef } from "vue";
+import type {
+    VNodeRef
+} from "vue";
 
-/**
- * Define props
- */
-defineProps({
-    name: {
-        type: String,
-        required: true,
-    },
-    accept: {
-        type: String,
-        default: "image/png, image/jpg, image/jpeg",
-    },
+withDefaults(defineProps<{
+    name: string;
+    class?: string;
+    accept?: string;
+}>(),{
+    name: '',
+    class: '',
+    accept: 'image/{png,jpg}'
 });
 
 /**
- * Declare variables
+ * Begin::Declare variable section
  */
-const images: Ref<any[]> = ref([]);
+const image: Ref<string | ArrayBuffer | any> = ref(null);
 const input: Ref<VNodeRef | null> = ref<VNodeRef | null>(null);
+/**
+ * End::Declare variable section
+ */
 
 /**
- * Handle multiple file selection
+ * Begin::Some logical in this component
  */
-const handleFile = (files: FileList): void => {
-    Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            images.value.push(reader.result as string);
-        };
+const handleFile = (file: File): void => {
+    if(file){
+        const reader: FileReader = new FileReader();
+        reader.onload = (): void => {
+            image.value = reader?.result;
+        }
         reader.readAsDataURL(file);
-    });
+    }
+}
 
-    resetInput(); // Reset input after selection
-};
-
-/**
- * Handle file input change
- */
-const onFileChange = (event: Event): void => {
-    const fileList = (event.target as HTMLInputElement)?.files;
-    if (fileList) handleFile(fileList);
-};
-
-/**
- * Trigger input file dialog
- */
 const triggerClick = (): void => {
-    const inputElement = input.value as any;
-    if (inputElement) {
-        inputElement.click();
-    }
-};
+    const inputElement: HTMLInputElement = (unref(input) as unknown) as HTMLInputElement;
 
-/**
- * Handle drag & drop upload
- */
-const handleDrop = (event: DragEvent): void => {
-    const droppedFiles = event.dataTransfer?.files;
-    if (droppedFiles && droppedFiles.length > 0) {
-        handleFile(droppedFiles);
+    if(inputElement){
+        inputElement.onchange = (event: Event): void => {
+            const file: File | undefined = (event?.target as HTMLInputElement)?.files?.[0];
+            handleFile(file as File);
+        }
+        inputElement?.click();
     }
-};
+}
 
-/**
- * Handle image paste (Ctrl + V)
- */
+const handleDrop = (event: Event): void => {
+    const droppedFiles = (event as DragEvent)?.dataTransfer?.files;
+    if(droppedFiles && droppedFiles.length > 0){
+        const file = droppedFiles[0];
+        if(file) setFileToInput(file);
+        handleFile(file);
+    }
+}
+
 const handlePaste = async (event: ClipboardEvent): Promise<void> => {
-    const items = event.clipboardData?.items;
-    if (!items) return;
-
-    for (const item of items) {
-        if (item.type.startsWith("image")) {
-            const file = item.getAsFile();
-            if (file) handleFile([file] as unknown as FileList);
+    const items = event?.clipboardData?.items;
+    for(const item of (items || [])){
+        if(item?.type?.indexOf('image') !== -1){
+            const file: File | null = item?.getAsFile();
+            if(file) setFileToInput(file);
+            handleFile(file as File);
         }
     }
-};
+}
 
-/**
- * Remove a specific image
- */
-const resetFile = (index: number): void => {
-    images.value.splice(index, 1);
-};
+const setFileToInput = (file: File): void => {
+    const inputElement: HTMLInputElement = (unref(input) as unknown) as HTMLInputElement;
+    const dataTransfer = new DataTransfer();
+    dataTransfer?.items?.add(file);
+    inputElement.files = dataTransfer?.files;
+    inputElement?.dispatchEvent(new Event('change', {
+        bubbles: true,
+        cancelable: true,
+        composed: true
+    }));
+}
 
-/**
- * Reset file input so the same files can be selected again
- */
-const resetInput = (): void => {
-    const inputElement = input.value as any;
-    if (inputElement) {
-        inputElement.value = ""; // Clear input to allow reselecting the same files
+const resetFile = (): void => {
+    const inputElement: HTMLInputElement | null = unref(input) as HTMLInputElement | null;
+    if(inputElement){
+        inputElement.value = '';
     }
-};
+    image.value = null;
+}
+/**
+ * End::Some logical in this component
+ */
 </script>

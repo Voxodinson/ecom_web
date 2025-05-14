@@ -25,7 +25,7 @@
             class="w-full p-3">
             <UProgress
                 :value="progress_bar"
-                :max="['Send OTP', 'OTP Confirm', 'New Password', reset_massage]"/>
+                :max="['Send OTP', 'OTP Confirm', 'New Password', 'Done']"/>
         </div>
         <div 
             class="w-full flex items-center justify-center mt-12 rounded-md p-3">
@@ -34,7 +34,7 @@
                     name="signin"
                     method="POST"
                     enctype="multipart/form-data"
-                    class="panel-login w-[600px] p-3 rounded-md border-[1px] border-gray-200 bg-white flex flex-col justify-center gap-2"
+                    class="panel-login w-[500px] p-3 rounded-md border-[1px] border-gray-200 bg-white flex flex-col justify-center gap-2"
                     @submit.prevent="">
                     <div class="flex items-center flex-col justify-center">
                         <UIcon
@@ -69,6 +69,9 @@
                         color="black"
                         variant="solid"
                         size="md"
+                        @click="() => {
+                            checkEmailAndSendOTP();
+                        }"
                         class="flex items-center justify-center text-md rounded-full mt-6"
                         label="Send OTP"
                         square/>
@@ -79,15 +82,15 @@
                     name="signin"
                     method="POST"
                     enctype="multipart/form-data"
-                    class="panel-login w-[600px] p-3 rounded-md border-[1px] border-gray-200 bg-white flex flex-col justify-center gap-2"
+                    class="panel-login w-[500px] p-3 rounded-md border-[1px] border-gray-200 bg-white flex flex-col justify-center gap-2"
                     @submit.prevent="">
                     <div class="flex items-center flex-col justify-center">
                         <UIcon
-                            name="material-symbols:mark-chat-read-outline-rounded"
+                            name="material-symbols:mail-outline-rounded"
                             class="w-12 h-12"/>
                         <h3
                             class="text-[1.2rem] font-medium mt-3">
-                            Forgot Password?
+                            OTP Code
                         </h3>
                         <p
                             class="block font-thin text-[.8rem] text-gray-400">
@@ -101,7 +104,7 @@
                     <div class="w-full h-fit flex items-center justify-center gap-2">
                         <p
                             class="block font-thin text-[.8rem] text-gray-400">
-                            {{ countdownStart ? `The new code has been sent.` : "Didn't get a OTP code?" }}
+                            {{ countdownStart ? `The code has been sent.` : "Didn't get a OTP code?" }}
                         </p>
                         <UButton
                             type="submit"
@@ -141,7 +144,9 @@
                         color="black"
                         variant="solid"
                         size="md"
-                        @click=""
+                        @click="() => {
+                            checkOTPCode();
+                        }"
                         class="flex items-center justify-center text-md rounded-full mt-12"
                         label="Check OTP Code"
                         square/>
@@ -154,42 +159,24 @@
                     enctype="multipart/form-data"
                     class="panel-login w-[600px] p-3 rounded-md border-[1px] border-gray-200 bg-white flex flex-col justify-center gap-2"
                     @submit.prevent="">
-                    <h3
-                        class="text-[1.2rem] font-medium">
-                        Change Password
-                    </h3>
-                    <p
-                        class="block font-thin text-[.8rem] text-gray-400">
-                        Password most be contain at least 2 letters, 2 numbers and 1 symbol. Minimun length 8 characters.
-                    </p>
-                    <UFormGroup
-                        class="w-full mt-6"
-                        label="Old Password"
-                        name="password">
-                        <UInput
-                            :type="show.show_old ? 'text' : 'password'"
-                            variant="outline"
-                            size="md"
-                            name="password"
-                            minlength="6"
-                            maxlength="20"
-                            placeholder="Enter you old password"
-                            v-model="userPassword.old_password"
-                            readonly
-                            required/>
-                        <UButton
-                            type="button"
-                            @click="show.show_old = !show.show_old"
-                            variant="link"
-                            color="white"
-                            size="sm"
-                            class="absolute top-0 right-0 w-auto h-full border-0 outline-0"
-                            square>
+                    <div class="flex items-center flex-col justify-center">
                         <UIcon
-                            :name="show.show_old ? 'fluent:eye-off-20-regular' : 'fluent:eye-24-regular'"
-                            class="text-xl"/>
-                        </UButton>
-                    </UFormGroup>
+                            name="qlementine-icons:password-16"
+                            class="w-12 h-12"/>
+                        <h3
+                            class="text-[1.2rem] font-medium mt-3">
+                            Set New Password
+                        </h3>
+                        <p
+                            class="block font-thin text-[.8rem] text-gray-400">
+                            Must be at least
+                            <span
+                                class="text-black ">
+                                8
+                            </span>
+                            characters
+                        </p>
+                    </div>
                     <UFormGroup
                         class="w-full"
                         label="New Password"
@@ -251,10 +238,33 @@
                         color="black"
                         variant="solid"
                         size="md"
+                        @click="() => {
+                            checkNewPassword();
+                        }"
                         class="flex items-center justify-center text-md rounded-full mt-6"
-                        label="Change New Password"
+                        label="Change Password"
                         square/>
                 </form>
+            </template>
+            <template v-if="progress_bar === 3">
+                <div 
+                    class="w-[600px] bg-white flex flex-col items-center justify-center gap-2">
+                    <UIcon
+                        name="material-symbols:published-with-changes-rounded"
+                        class="w-20 h-20 text-green-500"/>
+                     <h3
+                        class="text-[1.2rem] font-medium mt-3">
+                        Your new password change successfully!!
+                    </h3>
+                    <ULink
+                        to="/login"
+                        class="border-[1px] border-blue-400 rounded-md mt-12 p-1 px-3 flex items-center gap-2 text-blue-400 text-[.9rem]">
+                        <UIcon
+                            name="si:sign-in-duotone"
+                            class="w-5 h-5"/>
+                        Login with new Passsword
+                    </ULink>
+                </div>
             </template>
         </div>
     </div>
@@ -279,8 +289,7 @@ definePageMeta({
 const otpLength: any = 6;
 const otp: any = reactive(Array(otpLength).fill(''))
 const otpRefs: Ref<any[]> = ref<any[]>([])
-const progress_bar: Ref<number> = ref<number>(1);
-const reset_massage: Ref<string> = ref<string>('Successfully reset!');
+const progress_bar: Ref<number> = ref<number>(0);
 let countdownExpiredOTP: Ref<number> = ref<number>(60);
 const countdownStart: Ref<boolean> = ref<boolean>(false); 
 const userPassword: any = {
@@ -348,5 +357,23 @@ function submitOtp() {
 }
 /**
  * End: OPT section
+ */
+
+/**
+ * Begin:: Reset step
+ */
+const checkEmailAndSendOTP = () => {
+    progress_bar.value += Number(1);
+}
+
+const checkOTPCode = () => {
+    progress_bar.value += Number(1);
+}
+
+const checkNewPassword = () => {
+    progress_bar.value += Number(1);
+}
+/**
+ * End:: Reset step
  */
 </script>

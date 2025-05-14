@@ -40,6 +40,9 @@
                         label="Edit Profile"
                         variant="soft"
                         color="white"
+                        @click="() => {
+                            openEditModal(Boolean(true));
+                        }"
                         class="border-[1px] border-blue-400 text-blue-400"/>
                 </div>
             </div>
@@ -138,10 +141,150 @@
             <Privacy/>
         </template>
     </div>
+    <UModal 
+        v-model="openModalEditeProfile"
+        :ui="{
+            width: 'w-[60%] sm:max-w-1/2 max-h-[90vh]',
+        }">
+        <div 
+            class="w-full h-full overflow-auto bg-white rounded-md ">
+            <div class="w-full h-[50px] flex p-2 justify-between items-center border-b-[1px] border-gray-200">
+                <h3
+                    class=" capitalize font-semibold">
+                    Modify Information
+                </h3>
+                <UIcon
+                    name="material-symbols:close-rounded"
+                    class="w-7 h-7 text-black font-thin hover:scale-110 transition cursor-pointer"
+                    @click="() => {
+                        openEditModal(Boolean(false));
+                    }"/>
+            </div>
+             <form
+                name="signin"
+                method="POST"
+                enctype="multipart/form-data"
+                class="w-full p-3"
+                @submit.prevent="">
+                <h3
+                    class="pb-3 font-semibold">
+                    Profile
+                </h3>
+                <div 
+                    class="w-[170px] h-[170px] bg-gray-100 border-[2px] overflow-hidden border-blue-200 border-dashed rounded-md">
+                    <ChoosePhoto
+                        name="photo"/>
+                </div>
+                <h3
+                    class="mt-3 font-semibold">
+                    Information
+                </h3>
+                <div 
+                    class=" grid grid-cols-2 gap-3 mt-3">
+                    <UFormGroup
+                        class="w-full"
+                        label="Firstname"
+                        name="firstname">
+                        <UInput
+                            type="text"
+                            variant="outline"
+                            size="md"
+                            name="firstname"
+                            minlength="6"
+                            maxlength="20"
+                            placeholder="Enter you new firstname"
+                            readonly
+                            required/>
+                    </UFormGroup>
+                    <UFormGroup
+                        class="w-full"
+                        label="Lastname"
+                        name="lastname">
+                        <UInput
+                            type="text"
+                            variant="outline"
+                            size="md"
+                            name="lastname"
+                            minlength="6"
+                            maxlength="20"
+                            placeholder="Enter you new lastname"
+                            readonly
+                            required/>
+                    </UFormGroup>
+                    <UFormGroup
+                        class="w-full"
+                        label="Email"
+                        name="email">
+                        <UInput
+                            type="text"
+                            variant="outline"
+                            size="md"
+                            name="email"
+                            minlength="6"
+                            maxlength="20"
+                            placeholder="Enter you new email"
+                            readonly
+                            required/>
+                    </UFormGroup>
+                    <UFormGroup
+                        class="w-full"
+                        label="Phone"
+                        name="phone">
+                        <UInput
+                            type="text"
+                            variant="outline"
+                            size="md"
+                            name="phone"
+                            minlength="6"
+                            maxlength="20"
+                            placeholder="Enter you new phone"
+                            readonly
+                            required/>
+                    </UFormGroup>
+                </div>
+                <UFormGroup
+                    class="w-full mt-3"
+                    label="Bio"
+                    name="bio">
+                    <UTextarea 
+                        color="white" 
+                        placeholder="Enter something..."
+                        name="bio"
+                        role="input"
+                        autoresize/>
+                </UFormGroup>
+                <UFormGroup
+                    class="w-full mt-3"
+                    label="Address"
+                    name="address">
+                    <UTextarea 
+                        color="white" 
+                        placeholder="Enter address..."
+                        name="address"
+                        role="input"
+                        autoresize/>
+                </UFormGroup>
+                <div 
+                    class="w-full flex justify-end">
+                    <UButton
+                        type="submit"
+                        color="blue"
+                        variant="solid"
+                        size="sm"
+                        class="flex items-center justify-center text-md rounded-md mt-3"
+                        label="Save Change"
+                        square/>
+                </div>
+            </form>
+        </div>
+    </UModal>
 </template>
 
 <script setup lang="ts">
 import Privacy from './privacy.vue';
+import { 
+    ChoosePhoto 
+} from '~/components/ui';
 import { 
     UserImage 
 } from '~/assets/images';
@@ -150,7 +293,11 @@ definePageMeta({
     colorMode: 'light'
 });
 
+/**
+ * Declare variable section
+ */
 const selected: Ref<number> = ref<number>(0);
+const openModalEditeProfile: Ref<boolean> = ref<boolean>(false);
 const tabs: Ref<any[]> = computed(() => [
     {
         label: 'Information'
@@ -159,4 +306,12 @@ const tabs: Ref<any[]> = computed(() => [
         label: "Security"
     }
 ]);
+
+
+/**
+ * some logical section
+ */
+const openEditModal = (value: boolean) => {
+    openModalEditeProfile.value = value;
+}
 </script>
