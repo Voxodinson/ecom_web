@@ -108,7 +108,7 @@
                         <div 
                             class="w-full flex items-center justify-end">
                             <ULink
-                                to=""
+                                to="/settings/reset_password"
                                 class="text-[.7rem] hover:underline">
                                 Forgot password?
                             </ULink>
