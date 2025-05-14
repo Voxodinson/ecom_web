@@ -5,7 +5,7 @@
             <div 
                 class="w-full h-[60px] flex justify-between items-center p-3 border-b-[1px] border-gray-200 bg-gradient-to-r from-sky-400 to-sky-600">
                 <UButton
-                    @click.prevent="$router.back()"
+                    @click.prevent="handleBack"
                     variant="soft"
                     color="white"
                     class="group text-[1rem] text-white hover:underline cursor-pointer">
@@ -99,6 +99,23 @@
     </div>
 </template>
 <script setup lang="ts">
+
+const router = useRouter()
+const historyStack = useState<string[]>('historyStack', () => [])
+
+const handleBack = () => {
+  // Loop backwards through the history to find the last route that doesn't start with `/settings`
+  for (let i = historyStack.value.length - 2; i >= 0; i--) {
+    const path = historyStack.value[i]
+    if (!path.startsWith('/settings')) {
+      router.push(path)
+      return
+    }
+  }
+
+  // Fallback if no suitable route is found
+  router.push('/')
+}
 
 
 const linkItemsAccountInfo = [
