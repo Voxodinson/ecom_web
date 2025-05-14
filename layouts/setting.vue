@@ -128,6 +128,11 @@ const linkItemsAccountInfo = [
         to: '/settings/change_password',
         label: 'Change Your Password',
         icon: 'mage:exchange-a'
+    },
+    {
+        to: '/settings/reset_password',
+        label: 'Reset Your Password',
+        icon: 'material-symbols:lock-reset-rounded'
     }
 ];
 const linkItemsHelpCenter = [
