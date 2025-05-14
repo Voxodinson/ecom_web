@@ -93,7 +93,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full h-[200vh]">
+        <div class="w-full h-fit">
             <NuxtPage/>
         </div>
     </div>
