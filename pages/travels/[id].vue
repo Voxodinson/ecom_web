@@ -566,7 +566,7 @@ const links = [
     {
         label: 'Travel',
         icon: 'ic:round-travel-explore',
-        to: '/'
+        to: '/travels/travel'
     }, 
     {
         label: 'Siemreap',
