@@ -17,8 +17,6 @@
             v-if="$route.path !== '/chatbot'"
             class="w-fit h-fit fixed right-6 bottom-6 z-30 ">
             <div 
-                color="white" 
-                variant="soft"
                 class="w-[60px] h-[60px] rounded-full overflow-hidden">
                 <img 
                     :src="BotImage" 
