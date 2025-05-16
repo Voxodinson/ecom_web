@@ -33,14 +33,14 @@
                         orientation="horizontal"
                         class=" rounded-full overflow-hidden">
                         <UInput
+                            type="text"
                             icon="i-heroicons-magnifying-glass-20-solid"
                             size="sm"
                             color="white"
-                            :trailing="false"
                             variant="none"
                             placeholder="Search..."
-                            :padded="false"
-                            class="bg-gray-50 text-black rounded-l-md text-[.8rem] w-[250px] overflow-hidden py-1.5"/>
+                            class="bg-gray-50 text-black rounded-l-md text-[.8rem] w-[250px] overflow-hidden"
+                            @click="toggleSearchModal(Boolean(true))"/>
                             <UButton
                                 color="white"
                                 class="px-3 group border-none outline-none bg-white"
@@ -116,9 +116,15 @@
             </div>
         </div>
     </div>
+    <SearchModal
+        @toggle="toggleSearchModal"
+        :open="isOpenSearchModal"/>
 </template>
 
 <script setup lang="ts">
+import { 
+    SearchModal 
+} from '~/collector/modal';
 import { 
     Logo,
     UserImage
@@ -127,6 +133,7 @@ import {
 /**
  * Begin::Declare some variable section
  */
+const isOpenSearchModal: Ref<boolean> = ref<boolean>(false);
 const openSearchHistory: Ref<boolean> = ref<boolean>(false)
 const linkItems = [
     {
@@ -222,6 +229,9 @@ const userItems = [
  */
 const toggleSearch = (): void => {
     openSearchHistory.value = !openSearchHistory.value as boolean;
+}
+const toggleSearchModal = (value: boolean): void => {
+    isOpenSearchModal.value = value;
 }
 /**
  * End::Some logical section
