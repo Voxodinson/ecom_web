@@ -261,9 +261,10 @@
     <div 
         class="w-full p-3 flex items-center justify-center flex-col border-b-[1px] border-gray-200">
         <div 
-            class="w-[91%] grid grid-cols-4 gap-3">
+            class="w-[91%] grid grid-cols-3 gap-3">
             <TravelCard
-                :data="data.data"/>
+                :data="data.data"
+                v-for="i in 6"/>
         </div>
         <div 
             class="w-[90%] flex items-center justify-center mt-3">

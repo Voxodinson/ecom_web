@@ -14,17 +14,19 @@
             class="w-full h-full flex items-center justify-center absolute top-0 left-0">
             <div 
                 class="flex items-center justify-center flex-col">
-                <h1
-                    class="text-[3rem] font-bold uppercase text-white">
-                    Camtour Recommend
-                </h1>
+                <div class="overflow-hidden w-[100px] h-fit">
+                    <img 
+                        :src="PinIcon" 
+                        alt="logo"
+                        class="w-full h-full object-cover">
+                </div>
                 <h3
                     class="text-[1.2rem] font-semibold text-white mt-3">
-                    We prvide a travel products and recommend most popular place
+                    Discover top travel recommendations and the most popular places to visit.
                 </h3>
                 <p
                     class="w-[80%] text-white text-center">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae tempora sunt ex vel ratione nesciunt quam, laudantium voluptatem! Maiores iure officiis porro pariatur obcaecati natus eligendi autem. Labore quidem amet itaque, hic, provident nisi possimus praesentium recusandae ut, veniam vel?
+                    Discover top travel recommendations and the most popular places to visit with our platform. Whether you're planning your next getaway or exploring hidden gems nearby, we curate the best destinations based on real experiences and up-to-date trends. From iconic landmarks to off-the-beaten-path adventures, let us guide you to unforgettable places worth visiting.
                 </p>
                 <ULink
                     to="/products/product"
@@ -97,45 +99,22 @@
                     Join us as we explore the world and discover the best tools to make your journey smoother, more enjoyable, and stress-free. Let’s wander, explore, and create memories—one destination at a time!
                 </p>
             </div>
-            <div class="flex w-full p-3 items-center justify-center flex-col">
-                <UTabs 
-                    :items="tabs" 
-                    v-model="selected"
-                    class="w-[600px]"/>
-                <template 
-                    v-if="selected === 0">
-                    <h3
-                        class="text-[1.2rem] font-semibold py-2">
-                        Our Best Products
-                    </h3>
-                    <div 
-                        class="w-[90%] grid grid-cols-4 gap-3">
-                        <ProductCard
-                            :data="dataProducts.data"/>
-                    </div>
-                    <ULink
-                        to="/products/product" 
-                        class="text-black text-[.8rem] mt-3 hover:px-16 transition px-10 py-1 border-[1px] border-gray-400 rounded-md">
-                        View more...
-                    </ULink>
-                </template>
-                <template 
-                    v-if="selected === 1">
-                    <h3
-                        class="text-[1.2rem] font-semibold py-2">
-                        Our Best Recommend To Visit
-                    </h3>
-                    <div 
-                        class="w-[90%] grid grid-cols-4 gap-3">
-                        <TravelCard
-                            :data="dataTravels.data"/>
-                    </div>
-                    <ULink
-                        to="/travels/travel" 
-                        class="text-black text-[.8rem] mt-3 hover:px-16 transition px-10 py-1 border-[1px] border-gray-400 rounded-md">
-                        View more...
-                    </ULink>
-                </template>
+            <div class="flex w-full p-3 items-center justify-center flex-col py-6">
+                <h3
+                    class="text-[1.2rem] font-semibold py-2">
+                    Most views location
+                </h3>
+                <div 
+                    class="w-[90%] grid grid-cols-3 gap-3">
+                    <TravelCard
+                        :data="dataTravels.data"
+                        v-for="i in 3"/>
+                </div>
+                <ULink
+                    to="/travels/travel" 
+                    class="text-black text-[.8rem] mt-3 hover:px-16 transition px-10 py-1 border-[1px] border-gray-400 rounded-md">
+                    View more...
+                </ULink>
             </div>
         </div>
         <div 
@@ -199,57 +178,6 @@
                 </div>
             </div>
         </div>
-        <div 
-            class="w-full p-3 bg-white flex flex-col gap-3 rounded-md overflow-hidden mt-[60px]">
-            <div 
-                class="w-full flex items-center justify-between">
-                <h3
-                    class="font-semibold text-[1.2rem] capitalize">
-                    Best Sale & Products
-                </h3>
-                <ULink
-                    class="text-black flex items-center group font-thin text-[.9rem] hover:underline capitalize">
-                    View All
-                    <UIcon
-                        name="material-symbols:arrow-right-alt-rounded"
-                        class="w-4 h-4 group-hover:translate-x-1 transition"/>
-                </ULink>
-            </div>
-            <div 
-                class="w-full h-fit grid grid-cols-2 gap-3">
-                <div 
-                    class="w-full rounded-md h-[250px] overflow-hidden">
-                    <img 
-                        src="https://i.pinimg.com/474x/7b/46/99/7b469939a08887387745a69ee03299ef.jpg" 
-                        alt=""
-                        class="w-full h-full object-cover">
-                </div>
-                <div 
-                    class="h-[250px] w-full grid grid-cols-3 grid-rows-2 gap-3 bg-gray-100 p-3 rounded-md">
-                    <div 
-                        v-for="i in 6"
-                        class="w-full flex items-center justify-between bg-white rounded-md p-3">
-                        <div class="">
-                            <h3
-                                class="text-[.9rem] font-semibold">
-                                Macbook Air
-                            </h3>
-                            <span
-                                class="text-red-400 text-[.8rem]">
-                                73 items
-                            </span>
-                        </div>
-                        <div 
-                            class="w-[80px] h-[80px]">
-                            <img 
-                                src="https://i.pinimg.com/474x/18/30/7d/18307dfde0f655618d822607bda8c931.jpg" 
-                                alt=""
-                                class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -266,7 +194,10 @@ import type {
     Tab,
     ResponseStatus
 } from '~/models/type';
-
+import { 
+    PinIcon,
+    Logo 
+} from '~/assets/images';
 definePageMeta({
     colorMode: 'light'
 });
@@ -282,14 +213,13 @@ definePageMeta({
  */
 const dataProducts: Ref<any> = ref<any>({});
 const dataTravels: Ref<any> = ref<any>({});
-const selected: Ref<number> = ref<number>(0);
 const switchSrc: Ref<string> = ref<string>('https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg');
 const activeIdx: Ref<number> = ref<number>(0);
 const backgrounImage = [
     'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
     'https://t4.ftcdn.net/jpg/02/35/44/49/360_F_235444984_Ngx57fURYhp2A1cHWSfvDWEf6OWRoUK2.jpg',
     'https://c4.wallpaperflare.com/wallpaper/623/232/3/beautiful-village-wallpaper-preview.jpg'
-]
+];
 const main_card = [
     {
         img: 'https://i.pinimg.com/474x/6b/12/36/6b1236a4e2865155950091285625070a.jpg',
@@ -310,51 +240,6 @@ const tabs: Ref<Tab[]> = computed(() => [
         label: "Recommend Place"
     }
 ]);
-const dataRecommend = [
-    {
-        image: 'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
-        title: 'Mountain',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, consequatur.',
-        name: 'Lorem ipsum dolor sit amet',
-        price: 100
-    },
-    {
-        image: 'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
-        title: 'Mountain',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, consequatur.',
-        name: 'Lorem ipsum dolor sit amet',
-        price: 100
-    },
-    {
-        image: 'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
-        title: 'Mountain',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, consequatur.',
-        name: 'Lorem ipsum dolor sit amet',
-        price: 100
-    },
-    {
-        image: 'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
-        title: 'Mountain',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, consequatur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, consequatur.',
-        name: 'Lorem ipsum dolor sit amet',
-        price: 100
-    },
-    {
-        image: 'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
-        title: 'Mountain',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, consequatur.',
-        name: 'Lorem ipsum dolor sit amet',
-        price: 100
-    },
-    {
-        image: 'https://cdn.pixabay.com/photo/2017/11/12/13/37/forest-2942477_1280.jpg',
-        title: 'Mountain',
-        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, consequatur.',
-        name: 'Lorem ipsum dolor sit amet',
-        price: 100
-    }
-];
-
 /**
  * End::Declare variable section
  */

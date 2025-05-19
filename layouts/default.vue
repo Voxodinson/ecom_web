@@ -66,23 +66,24 @@ let lastScrollY = 0;
 const isScrolled = ref(false)
 
 const handleScroll = () => {
-  const currentScrollY = window.scrollY
-  isVisible.value = currentScrollY < lastScrollY || currentScrollY < 10
-  isScrolled.value = currentScrollY > 10
-  lastScrollY = currentScrollY
+    const currentScrollY = window.scrollY
+    isVisible.value = currentScrollY < lastScrollY || currentScrollY < 10
+    isScrolled.value = currentScrollY > 10
+    lastScrollY = currentScrollY
 }
 
 
 const isTravelsRoute = computed(() => {
     return /^\/travels\/\d+$/.test(route.path);
 });
+
 const isProductsRoute = computed(() => {
     return /^\/products\/\d+$/.test(route.path);
 });
 
 const hasGradientBg = computed(() =>
     isScrolled.value ||
-    ['/cart', '/users/user_profile', '/chatbot'].includes(route.path) ||
+    ['/cart', '/users/user_profile', '/chatbot', '/travels/user_post'].includes(route.path) ||
     isTravelsRoute.value ||
     isProductsRoute.value
 )
