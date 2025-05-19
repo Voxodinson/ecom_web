@@ -1,22 +1,23 @@
 <template>
     <div
         class="w-full h-fit flex items-center justify-center">
-        <div class="w-full h-[55px] px-6 bg-opacity-80 flex items-center justify-between">
+        <div class="w-full h-[70px] px-6 bg-opacity-80 flex items-center justify-between">
             <div class="w-fit">
-                <h1
-                    class="text-white leading-4 text-[1.2rem] font-bold uppercase">
-                    Camtour <br> Recommend
-                </h1>
+                <img 
+                    :src="Logo" 
+                    alt="logo"
+                    class="w-[200px]">
             </div>
             <div class="hidden lg:flex">
                 <ul class="flex gap-3">
                     <li
-                        v-for="(item, idx) in linkItems">
+                        v-for="(item, idx) in linkItems"
+                        class="w-fit h-fit">
                         <ULink
                             :key="idx"
                             :to="item.to"
                             active-class="bg-white bg-black text-black py-2 px-4 rounded-full "
-                            class="text-[.9rem] uppercase flex items-center gap-1 "
+                            class="text-[.9rem] capitalize flex items-center gap-1 "
                             inactive-class="text-white hover:text-blue-300 font-normal py-2 px-4 rounded-full hover:bg-white transition">
                             <UIcon
                                 :name="item.icon"
@@ -59,21 +60,6 @@
                         class="w-full absolute bg-white p-2 top-[110%] rounded-md shadow-md">
                         search history
                     </div>
-                </div>
-                <div 
-                    class="w-fit">
-                    <UChip
-                        size="2xl"
-                        text="9">
-                        <ULink
-                            to="/cart"
-                            active-class="text-black"
-                            inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-                            <UButton 
-                                icon="material-symbols:shopping-cart-outline" 
-                                color="gray"/>
-                        </ULink>
-                    </UChip>
                 </div>
                 <UDropdown
                     class="lg:hidden flex"
@@ -142,20 +128,20 @@ const linkItems = [
         icon: 'material-symbols:home-outline-rounded'
     },
     {
-        to: '/products/product',
-        label: 'Shop',
-        icon: 'material-symbols:shopping-bag-outline'
-    },
-    {
         to: '/travels/travel',
         label: 'Travel',
         icon: 'ic:round-travel-explore'
     },
     {
+        to: '/travels/user_post',
+        label: 'Share',
+        icon: 'material-symbols:add-location-alt-outline-rounded'
+    },
+    {
         to: '/about',
         label: 'About',
         icon: 'ix:about'
-    },
+    }
 ];
 const itemsLinkDropdown = [
     [

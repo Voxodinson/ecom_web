@@ -62,10 +62,12 @@
                 class="w-full grid mt-3 pt-6 pb-12 grid-cols-4 justify-center">
                 <div 
                     class="flex flex-col items-start justify-start gap-3">
-                    <h3
-                        class="text-[1.2rem] font-semibold">
-                        Website Name Online Market
-                    </h3>
+                    <div class="overflow-hidden w-[200px] h-[60px]">
+                        <img 
+                            :src="LogoBlack" 
+                            alt="logo"
+                            class="w-full h-full object-cover">
+                    </div>
                     <span
                         class="font-semibold text-[1.2rem] text-green-400">
                         <span
@@ -186,8 +188,9 @@
 </template>
 
 <script setup>
-import { UInput } from '#components';
-
+import { 
+    LogoBlack
+} from '~/assets/images';
 
 /**
  * Begin::Declare variable section
